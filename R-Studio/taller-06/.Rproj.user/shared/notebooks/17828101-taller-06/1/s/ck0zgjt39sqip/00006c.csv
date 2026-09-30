@@ -1,0 +1,5 @@
+"0","med <- pol |> "
+"0","          group_by(Ants) |> "
+"0","        summarise(""mean_don""=mean(as.numeric(Donated)),""mean_rec""=mean(as.numeric(Received)))"
+"0",""
+"0","med"

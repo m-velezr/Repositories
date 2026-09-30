@@ -1,0 +1,5 @@
+"0","library(readr)"
+"0","library(ggplot2)"
+"0",""
+"0","ard <- read.csv(""pines-squirrels.tsv"",sep="""")"
+"0","ard"

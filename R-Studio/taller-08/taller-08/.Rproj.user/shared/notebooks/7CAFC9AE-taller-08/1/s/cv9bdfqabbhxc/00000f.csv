@@ -1,0 +1,8 @@
+"0","ggplot(data=fore, aes(x=FFMC,y=area))+"
+"0","  geom_point()+"
+"0","  geom_smooth(method=lm)+"
+"0","  theme_linedraw() +"
+"0","  labs(y=""Área total quemada (ha)"",title=""Área quemada vs Índices FFMC"") +"
+"0","  theme(plot.title=element_text(hjust=0.5))+"
+"0","  stat_poly_eq(use_label(c(""eq"",""r2"",""F"",""p.value"", ""n""))) "
+"0",""

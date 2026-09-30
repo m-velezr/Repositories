@@ -1,0 +1,14 @@
+"2","Aviso en gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Mariana Velez/OneDrive - Universidad de los andes/Documentos/Universidad/8 semestre/Inferencia E Informática/Laboratorio/taller-05/.Rproj.user/shared/notebooks/A778F2E3-taller-05/1/E81E19F54361e501/c5tx27dahfbth_t/b0b7705272c54e54b9b6c5b4f0244e70.snapshot', probable reason 'No such file or directory'
+"
+"2","Error en gzfile(file, ""wb""): no se puede abrir la conexión
+"
+"0",""
+"0","library(dplyr)"
+"0",""
+"0","muj <- bones |> "
+"0","      filter(sex ==0)"
+"0",""
+"0","muj"

@@ -1,0 +1,4 @@
+"0","library(readxl)"
+"0",""
+"0","archivos_bones = read.csv(""bones_dimensions.csv"")"
+"0","archivos_bones"

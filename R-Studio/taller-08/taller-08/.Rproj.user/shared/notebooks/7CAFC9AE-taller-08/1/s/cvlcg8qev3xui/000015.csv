@@ -1,0 +1,11 @@
+"0","plot(check_autocorrelation(model))"
+"2","Aviso: There is currently no `plot()` method for
+  `check_autocorrelation()`."
+"0","plot(check_heteroscedasticity(model))"
+"2","Aviso en gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Mariana Velez/OneDrive - Universidad de los andes/Documentos/Universidad/8 semestre/Inferencia E Informática/Laboratorio/taller-08/taller-08/.Rproj.user/shared/notebooks/7CAFC9AE-taller-08/1/E81E19F59ea67f09/cvlcg8qev3xui_t/4a72d31bb9a14503be5cf3a20e033531.snapshot', probable reason 'No such file or directory'
+"
+"2","Error en gzfile(file, ""wb""): no se puede abrir la conexión
+"

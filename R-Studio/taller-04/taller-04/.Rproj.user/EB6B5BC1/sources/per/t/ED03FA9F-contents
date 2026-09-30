@@ -1,0 +1,57 @@
+---
+title: "Taller 04 - Pruebas estadísticas paramétricas y no paramétricas"
+author: 
+ - Integrante 1
+date: today
+format: html
+lang: es
+fig-align: center
+df-print: paged
+toc: true
+---
+
+En este taller les planteamos preguntas científicas con su respectivo diseño experimental y toma de datos. Su tarea es realizar la prueba estadística (paramétrica o no paramétrica) adecuada en cada caso para para analizar los datos y llegar a la conclusión estadística adecuada. Todos los datos se encuentran en el archivo `datos-04.xlsx`
+
+En **todos** los puntos del taller **debe** realizar todos los siguientes pasos:
+
+- i. Explorar visualmente el conjunto de datos asociado a la investigación.
+- ii. Plantear la hipótesis nula y la alternativa teniendo en cuenta la pregunta de investigación mencionada.
+- iii. Defina el nivel de significancia ($\alpha$) y justificar su criterio.
+- iv. Aplicar la prueba estadística.
+- v. Discutir sus resultados.
+
+### 1. Apareamiento de peces [1.25 puntos].
+
+Los machos de algunas especies de peces cíclidos son fértiles hasta unos pocos días después de que ellos se han vuelto socialmente dominantes en presencia de hembras. Machos sin un territorio (y por lo tanto sin esperanza de apareamiento) tienen genitalia atrofiada, mientras que machos con control de territorio y con hembras, tienen genitalia bien desarrollada. Ellos pueden cambiar de un estado a otro en cuestión de días. [White et al., 2002](https://journals.biologists.com/jeb/article/205/17/2567/9075/Social-regulation-of-gonadotropin-releasing) quisieron conocer la señal hormonal para este cambio, y una hormona candidata es la gonadotropina (GnRH). Ellos midieron el ARN mensajero (mRNA) de GnRH para cinco peces territoriales (T) y para seis peces no territoriales (NT).
+
+Asuma que el muestreo fue aleatorio e independiente. ¿Existe diferencia en el promedio de los niveles de mRNA de GnRH para machos con y sin territorio?
+
+```{r}
+
+```
+
+### 2. Temperatura en avestruces [1.25 puntos].
+
+Las avestruces viven en ambientes cálidos y normalmente están expuestas al sol por largos periodos de tiempo. Los mamíferos en ambientes similares tienen mecanismos especiales para reducir la temperatura del cerebro en relación a la temperatura del cuerpo. Se quiere saber sí las avestruces pueden hacer lo mismo ([Fuller et al., 2003](https://journals.biologists.com/jeb/article/206/7/1171/14608/Variability-in-brain-and-arterial-blood)). La temperatura media del cuerpo y del cerebro de seis avestruces fue registrado en condiciones típicas de calor.
+
+Asuma que el muestreo fue aleatorio e independiente. Determine si existe alguna diferencia entre la temperatura corporal y la temperatura del cerebro en las avestruces (grafique los resultados).
+
+```{r}
+
+```
+
+### 3. Madurez sexual [1.25 puntos].
+
+Investigadores desean saber si es posible concluir que dos poblaciones de juveniles de cierta especie difieren en la edad promedio en la cual llegan a la madurez sexual. Los datos son los siguientes: (Asuma que el muestreo fue aleatorio e independiente)
+
+```{r}
+
+```
+
+### 4. Nado en distintos ambiente [1.25 puntos].
+
+¿Pueden los humanos nadar más rápido en agua que en “Syrup”? Se desconoce si el incremento en la fricción del cuerpo moviéndose a través del “Syrup” es compensado por el incremento en el poder de cada brazada. En un experimento, se llenó una piscina con agua mezclada con “Syrup” y otra piscina con agua normal ([Gettelfinger & Cussler, 2004](https://aiche-onlinelibrary-wiley-com.ezproxy.uniandes.edu.co/doi/10.1002/aic.10389)). Ellos tenían 18 deportistas nadando en ambas piscinas. Los datos son presentados como la velocidad relativa de cada nadador (velocidad en la piscina de “Syrup” dividida por la velocidad en la piscina de agua). Sí el “Syrup” no tiene ningún efecto sobre la velocidad, el coeficiente debería ser 1 en promedio.
+
+```{r}
+
+```

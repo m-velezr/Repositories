@@ -1,0 +1,4 @@
+"0",""
+"0","model <- lm(area~FFMC*month, data=fore)"
+"0",""
+"0","tidy(model)"

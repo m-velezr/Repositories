@@ -1,0 +1,393 @@
+---
+title: "Taller 11 - Alineamientos pareados"
+author: 
+ - Integrante 1
+ - Integrante 2
+date: today
+format: html
+lang: es
+fig-align: center
+df-print: paged
+toc: true
+---
+
+Complete los pasos que se indican en el taller al final de la guía. Una vez los complete reporte en este documento los comandos y resultados obtenidos. Puede hacer uso de los bloques de código para mostrar los comandos y las salidas de los mismos.
+
+### 1. Alineamientos pareados y sus parametros. [1.5 puntos]
+
+
+####Indique qué linea de comando (i.e. argumentos y opciones) usó para correr needle y matcher, respectivamente.
+
+cp -r  Talleres/Taller-11 Secciones/sección-01/grupo-03
+cd Secciones/sección-01/grupo-03/Taller-11
+
+needle secuencia_1.fasta secuencia_2.fasta -gapopen 10 -gapextend 0.5 -auto -outfile needle_result.txt
+
+matcher secuencia_1.fasta secuencia_2.fasta -gapopen 12 -gapextend 2 -auto -outfile matcher_result.txt
+
+-gapopen: Esta es una penalización por abrir una brecha. Penaliza el comienzo de una inserción o deleción. Un valor mayor logra alineamientos más conservadores. Para needle se usa 10 y para matcher de usa 12, ya que matcher es más sensible.
+
+-gapextend: Penalización por extender una brecha ya abierta. Se suma cada vez que se alarga un gap. Un valor más alto permite brechas más largas. Para needle se utiliza un valor de 0.5 y para matcher un valor de 2, esto se debe a que needle realiza un alineamiento global de toda la secuencia, si se permite que la secuencia se extienda demasiado se podrían llegar a resultados erróneos. Mientras que, para matcher se puede utilizar un valor más alto, dado que, el alineamiento es local.
+
+-auto: Automatiza el proceso. Utiliza parámetros estándares.
+
+-outfile: Archivo de salido. Guarda el alineamiento, puntuación, similitud
+
+####Comente los resultados. Escriba los porcentajes de identidad y el score del alineamiento para cada algoritmo.
+########################################
+# Program: needle
+# Rundate: Wed 23 Apr 2025 07:02:15
+# Commandline: needle
+#    [-asequence] secuencia_1.fasta
+#    [-bsequence] secuencia_2.fasta
+#    -gapopen 10
+#    -gapextend 0.5
+#    -auto
+#    -outfile needle_result.txt
+# Align_format: srspair
+# Report_file: needle_result.txt
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: Secuencia_1
+# 2: Secuencias_2
+# Matrix: EDNAFULL
+# Gap_penalty: 10.0
+# Extend_penalty: 0.5
+#
+# Length: 1742
+# Identity:     539/1742 (30.9%)
+# Similarity:   539/1742 (30.9%)
+# Gaps:        1074/1742 (61.7%)
+# Score: 840.0
+
+Se observa que en needle el porcentaje de identidad y de similitud es del 30.9%, es decir que, este valor representa el porcentaje en el cual las bases alineadas son idénticas entre las dos secuencias o que tienen similitudes. En este caso, al ser el mismo valor para ambos parámetros se concluye que las coincidencias encontradas son exactas/idénticas entre las dos secuencias.
+Por otro lado, el porcentaje de brecha es del 61.7% esto indica el porcentaje de brechas presentes en la alineación, esto indica que existen áreas donde las secuencias no se alinean bien o no se alinean en absoluto.
+Finalmente, el Score Total es de 840, este es un valor que indica la calidad general del alineamiento, y debe interpretarse en conjunto con el gapopen y el gapextend elegidos. Este es un valor alto, pero dado a que el numero de brechas es bastante elevado, se puede concluir que la coincidencia global entre las dos secuencias no es alta.
+
+########################################
+# Program: matcher
+# Rundate: Wed 23 Apr 2025 07:10:39
+# Commandline: matcher
+#    [-asequence] secuencia_1.fasta
+#    [-bsequence] secuencia_2.fasta
+#    -gapopen 12
+#    -gapextend 2
+#    -auto
+#    -outfile matcher_result.txt
+# Align_format: markx0
+# Report_file: matcher_result.txt
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: Secuencia_1
+# 2: Secuencias_2
+# Matrix: EDNAFULL
+# Gap_penalty: 12
+# Extend_penalty: 2
+#
+# Length: 761
+#Identity:     401/761 (52.7%)
+# Similarity:   401/761 (52.7%)
+# Gaps:         143/761 (18.8%)
+# Score: 341
+
+Para matcher se observa que el porcentaje de identidad y de similitud entre las dos secuencias es del 52.7%, en donde al ser este el mismo valor se logra concluir que, ambas secuencias son idénticas en ese porcentaje. Adicionalmente, tiene un porcentaje de 18.8% de brechas para una puntuación final de 341, lo cual indica que, el alineamiento de matcher no es tan favorable en términos de coincidencias.
+
+####¿Consideraría que las dos secuencias son homólogas basándose en los alineamientos? (Pista: ¿Cómo hubieran sido los porcentajes de identidad para secuencias al azar?).
+
+Los porcentajes de identidad para secuencias elegidas al azar pueden tender a valores más bajos que los obtenidos en needle y matcher. Por ende, al considerar que los porcentajes de similitud e identidad están por encima del 30% para los dos métodos, se puede sugerir que las secuencias podrían estar relacionadas entre sí, lo cual es un indicio para indicar que son homólogas. 
+
+
+### 2. Alineamientos pareados e identificación de secuencias. [1.0 puntos]
+
+####Con lo aprendido en el taller de bases de datos busque información sobre DAPK y CDH1. Describa brevemente cual es la función de cada una en humanos y si se han registrado homólogos en ratón. No olvide la bibliografía y el uso de artículos certificados.
+
+
+####Ahora realice alineamientos locales entre la secuencia problema (mouse_prot.fasta) y cada uno de los genes, i.e. DAPK y desconocido; CDH1 y desconocido. ¿Cuál de los dos genes presenta el mejor alineamiento local?
+
+Análisis para DAPK
+
+Resultados Needle:
+Dado que se está trabajando con proteinas se utiliza la matriz EBLOSUM62 que recomienda el sistema.
+
+
+
+needle mouse_prot.fasta DAPK1.fasta -gapopen 10 -gapextend 0.5 -auto -datafile EBLOSUM62 -outfile DAPK_Needle.txt
+
+########################################
+# Program: needle
+# Rundate: Wed 23 Apr 2025 09:47:42
+# Commandline: needle
+#    [-asequence] mouse_prot.fasta
+#    [-bsequence] DAPK1.fasta
+#    -gapopen 10
+#    -gapextend 0.5
+#    -auto
+#    -datafile EBLOSUM62
+#    -outfile DAPK_Needle.txt
+# Align_format: srspair
+# Report_file: DAPK_Needle.txt
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: EDC45261.1
+# 2: DAPK1
+# Matrix: EBLOSUM62
+# Gap_penalty: 10.0
+# Extend_penalty: 0.5
+## Length: 1557
+# Identity:     118/1557 ( 7.6%)
+# Similarity:   199/1557 (12.8%)
+# Gaps:        1125/1557 (72.3%)
+# Score: 42.0
+
+
+Resultados Matcher:
+Dado que se está trabajando con proteinas se utiliza la matriz EBLOSUM62 y una penalización de 14 para gapopen que recomienda el sistema 
+
+matcher mouse_prot.fasta DAPK1.fasta -gapopen 14 -gapextend 4 -auto -datafile EBLOSUM62 -outfile DAPK_Matcher.txt
+
+########################################
+# Program: matcher
+# Rundate: Wed 23 Apr 2025 09:52:10
+# Commandline: matcher
+#    [-asequence] mouse_prot.fasta
+#    [-bsequence] DAPK1.fasta
+#    -gapopen 14
+#    -gapextend 4
+#    -auto
+#    -datafile EBLOSUM62
+#    -outfile DAPK_Matcher.txt
+# Align_format: markx0
+# Report_file: DAPK_Matcher.txt
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: EDC45261.1
+# 2: DAPK1
+# Matrix: EBLOSUM62
+# Gap_penalty: 14
+# Extend_penalty: 4
+# Length: 13
+# Identity:       7/13 (53.8%)
+# Similarity:     9/13 (69.2%)
+# Gaps:           0/13 ( 0.0%)
+# Score: 38
+
+Conclusiones DAPK
+
+Se observa que al hacer una comparación global (Needle) el porcentaje de identidad y similitud es mucho más bajo que en matcher, ya que este último solo se concentra en una zona localizada de la secuencia, este modelo logra mostrar que sola una pequeña porción de la secuencia tiene un porcentaje de similitud y de identidad muy pronunciado. No obstante, se muestra que el puntaje es muy cercano para los dos métodos, en donde el puntaje en general es muy bajo.
+
+Finalmente, se prefiere concluir de forma global, ya que se desea ver la similitud de las secuencias en totalidad. En Needle se observa que solo una pequeña parte de la secuencia logra tener similitud, pues se ha tenido que reorganizar la cadena con un 72.3% de brechas. 
+ 
+
+Análisis para CDH
+
+Resultados Needle:
+Dado que se está trabajando con proteinas se utiliza la matriz EBLOSUM62 que recomienda el sistema.
+
+
+
+needle mouse_prot.fasta CDH1.fasta -gapopen 10 -gapextend 0.5 -auto -datafile EBLOSUM62 -outfile CDH_Needle.txt
+
+########################################
+# Program: needle
+# Rundate: Wed 23 Apr 2025 10:28:34
+# Commandline: needle
+#    [-asequence] mouse_prot.fasta
+#    [-bsequence] CDH1.fasta
+#    -gapopen 10
+#    -gapextend 0.5
+#    -auto
+#    -datafile EBLOSUM62
+#    -outfile CDH_Needle.txt
+# Align_format: srspair
+# Report_file: CDH_Needle.txt
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: EDC45261.1
+# 2: CDH1
+# Matrix: EBLOSUM62
+# Gap_penalty: 10.0
+# Extend_penalty: 0.5
+# Length: 896
+# Identity:     270/896 (30.1%)
+# Similarity:   348/896 (38.8%)
+# Gaps:         351/896 (39.2%)
+# Score: 1276.0
+
+Resultados Matcher:
+Dado que se está trabajando con proteinas se utiliza la matriz EBLOSUM62 y una penalización de 14 para gapopen que recomienda el sistema 
+
+matcher mouse_prot.fasta CDH1.fasta -gapopen 14 -gapextend 4 -auto -datafile EBLOSUM62 -outfile CDH_Matcher.txt
+
+########################################
+# Program: matcher
+# Rundate: Wed 23 Apr 2025 10:32:33
+# Commandline: matcher
+#    [-asequence] mouse_prot.fasta
+#    [-bsequence] CDH1.fasta
+#    -gapopen 14
+#    -gapextend 4
+#    -auto
+#    -datafile EBLOSUM62
+#    -outfile CDH_Matcher.txt
+# Align_format: markx0
+# Report_file: CDH_Matcher.txt
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: EDC45261.1
+# 2: CDH1
+# Matrix: EBLOSUM62
+# Gap_penalty: 14
+# Extend_penalty: 4
+# Length: 549
+# Identity:     268/549 (48.8%)
+# Similarity:   345/549 (62.8%)
+# Gaps:          18/549 ( 3.3%)
+# Score: 1218
+
+
+Conclusiones CDH
+
+Se observa que al realizar un alineamiento global el porcentaje de similitud e identidad es muy cercano al porcentaje de brechas, lo cual indica que el modelo fuerza el alineamiento de las secuencias. Esto indicaría que los resultados no son tan conservativos en toda la cadena. Por otro lado, matcher se enfoca en las zonas donde existe una similitud importante entre las dos secuencias, este alcanza un porcentaje del 62.8% con un total de brechas de solo el 3.3%, esto indica que para un largo de 549 las dos secuencias son bastante similares.
+
+
+Conclusiones entre CDH y DAPK
+
+Entre las dos secuencias analizadas, tanto Needle como Matcher muestran resultados favorables en cuanto a la similitud con la cadena CDH1. Ambos alineamientos evidencian que la proteína desconocida comparte un grado significativo de conservación con CDH1, siendo particularmente notable en las regiones alineadas por Matcher, que destaca por su mayor porcentaje de identidad y menor número de huecos.
+
+####¿Qué tipo de alineamiento (global o local) piensa usted que es más útil para determinar función?
+
+El alineamiento local (matcher) debería ser el más adecuado para determinar una función en particular, ya que este se concentra de forma especifica en un tramo de la secuencia, por ello, sirve para determinar de forma delimitada la función de una zona de la secuencia.
+
+
+
+### 3. Mega Blast discontinuo en interfaz web. [1.25 puntos]
+
+
+####Realice un blast estándar (mega-blast).
+
+makeblastdb -in refseqgene_custom.fasta -dbtype nucl -out refseqgene_db
+
+-in refseqgene_custom.fasta: archivo fasta con las secuencias de la base de datos
+
+-dbtype nucl: especifica que las secuencias son nucleótidos
+
+-out refseqgene_db: nombre para el archivo donde se almacenará la información
+
+
+blastn -query human_twistn.fasta -db refseqgene_db -out resultados.txt -task megablast
+
+-query human_twistn.fasta: el archivo con la secuencia que se usará como consulta
+
+-db refseqgene_db: base de datos contra la cual se compara el archivo
+
+-out resultados.txt. archivo donde se guardará el análisis
+
+-task megablast: tipo de Blast a usar
+
+
+
+¿Qué puede decir sobre esta secuencia?
+
+Al visualizar el archivo resultados.txt con el comando less se observa que este no ha encontrado ninguna coincidencia 
+
+####Ahora realice un mega-blast discontinuo, ¿qué diferencias hay con los resultados anteriores?
+
+blastn -query human_twistn.fasta -db refseqgene_db -out resultados_discontinuo.txt -outfmt 6 -task dc-megablast
+
+En este caso el archivo resultados_discontinuo.txt también se encuentra vacío.
+
+¿Cuál es la aproximación de un mega-blast discontinuo y para qué podría usarse?
+
+Este método intenta detectar semejanzas más distantes, es decir que permite más diferencias al principio del alineamiento. Se utiliza cuando hay mutaciones o divergencia evolutiva
+
+### 4. BLAST desde la linea de comandos. [1.25 puntos]
+
+####Descargue las secuencias con números de acceso BAK64065 y XP_002889081 del NCBI en formato Fasta, y guárdelos en su carpeta personal (o la de su grupo) ¿Qué sintaxis uso en el buscador?
+
+Desde VSC se usó el comando wget para descargar la información de las secuencias desde NCBI. Para ello, se utiliza la URL de cada secuencia de la base de datos de NCBI.
+
+wget "https://www.ncbi.nlm.nih.gov/protein/BAK64065?report=fasta&format=text" -O BAK64065.fasta
+
+efetch -db protein -id BAK64065 -format fasta > BAK64065.fasta
+
+
+
+efetch -db protein -id XP_002889081 -format fasta > XP_002889081.fasta
+
+
+efetch: es un comando que permite descargar información de bases de datos de NCBI.
+
+-db: es la base de datos que se está consultando en NCBI
+
+-id: especifica el id de acceso de la secuencia dentro de la base de datos especificada en db
+
+-format: especifica el formato de descarga y el nombre que se le dará al archivo.
+
+####Ahora crearemos la base de datos de todas las proteínas de A. thaliana. Para esto use el comando makeblastdb. Consulte el manual de makeblastdb desde el cluster. ¿Qué parámetros usó? Especifique qué significa cada opción/parámetro usado.
+
+makeblastdb -in TAIR10_pep_20101214.fasta -dbtype prot -out tair10_db
+
+makeblastdb: es el comando de BLAST que se utiliza para generar una base de datos a partir de un archivo de secuencias.
+
+
+-in TAIR10_pep_20101214.fasta: archivo fasta con las secuencias de la base de datos
+
+-dbtype prot: especifica que las secuencias son proteinas
+
+-out tair10_db: nombre para el archivo donde se almacenará la información
+
+
+####Teniendo la base de datos en el formato adecuado podemos hacer nuestra primera búsqueda. Use la secuencia proteínas BAK64065. Usaremos el programa blastp para encontrar la identidad de esta proteína. ¿Qué identidad obtuvo?
+
+blastp -query BAK64065.fasta -db tair10_db -outfmt 6 -evalue 1e-5 -out resultBAK64065.txt
+
+BAK64065.1      AT3G54180.1     71.010  307     83      1       1       301     1       307     2.03e-162       454
+
+La identidad con AT3G54180.1 es del 71.010%
+
+blastp -query XP_002889081.fasta -db tair10_db -outfmt 6 -evalue 1e-5 -out resultXP_002889081.txt
+
+XP_002889081.1  AT1G76420.1     94.065  337     15      3       1       335     1       334     0.0     591
+
+La identidad con AT1G76420.1 es del 94.065%
+
+####Revise el archivo de salida. Estas tablas pueden llegar a ser muy extensas para eso blast ofrece la opción de editar los resultados mediante la opción -outfmt. Hay muchos otros formatos de salida que se pueden pedir durante la búsqueda con el parámetro -outfmt. Describa los formatos de salida posibles.
+
+Par defecto: alineación detallada.
+Tabular: formato tipo tabla
+Tabular con encabezado: tabla con encabezado en cada columna
+XML: formato estructurado para análisi estructurado
+CSV: formato separado por comas
+JSON: formato moderno utiilizado para APIS y lenguajes de programación.
+
+####Haga la búsqueda con blastp para la secuencia con número de acceso XP_002889081. Pero esta vez genere un archivo de salida que solo muestre los primeros 3 hits y que esté en un formato tabular que incluya: la longitud del alineamiento, el e-value, el ID de la secuencia de consulta (query) y (subject). Escriba los comandos que utilizó.
+
+blastp -query XP_002889081.fasta -db tair10_db -outfmt "6 qseqid sseqid length evalue" -max_target_seqs 3 -out resultXP_002889081_top3.txt
+
+
+-query XP_002889081.fasta: el archivo de entrada con la secuencia de consulta.
+
+-db tair10_db: La base de datos de proteínas de Arabidopsis thaliana.
+
+-outfmt "6 qseqid sseqid length evalue": Formato tabular que incluye a longitud del alineamiento, el e-value, el ID de la secuencia de consulta (query) y (subject).
+
+-max_target_seqs 3: Limita el número de hits a 3.
+-out resultXP_002889081_top3.txt: El archivo donde se guardarán los resultados.

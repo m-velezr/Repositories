@@ -1,0 +1,471 @@
+---
+title: "Taller 08"
+subtitle: "Correlación, Regresión Lineal, Regresión múltiple"
+author: Integrante
+date: today
+format: html
+---
+
+En **todos** los puntos del taller **debe** realizar todos los siguientes pasos:
+
+Lea muy bien el enunciado y la pregunta asociada, además, asegúrese de entender lo que se pide. En **todos** los puntos del taller **debe** realizar todos los siguientes pasos:
+
+i. De acuerdo a la descripción del estudio, formular una pregunta de investigación con sus respectivas hipótesis y predicciones.
+ii. Identificar e indicar cuál es la variable dependiente y cuál la independiente y explique porqué.
+iii. Evaluar la normalidad de las variables que lo requieran.
+iv. Escoger el análisis estadístico correcto.
+v.  Interprete sus resultados **incluyendo gráficas**. Incluya el Valor-P, valor observado del estadístico de prueba, alfa escogido, coeficiente de determinación ($R^2$) o coeficiente de correlación ($r$ y $r^2$), porcentaje explicado y porcentaje no explicado por el modelo. Discutir los resultados.
+
+### 1. Relación en variables de cocodrilos [1.66 puntos]
+
+** En el archivo `Cocodrilos.xlxs` se presentan los datos crudos de un estudio donde se pretendía medir si existe alguna relación entre el tamaño del huevo (en mm) con el tamaño de la nidada (promedio de los huevos en la puesta) en el Yacaré Overo (*Caiman latirostris*). Realice el respectivo análisis estadístico y discuta las implicaciones biológicas de este estudio. Realice el gráfico correspondiente.
+```{r}
+library(readxl)
+
+coc <- read_excel("Cocodrilos.xlsx")
+
+
+
+```
+
+i. 
+Pregunta Investigación: ¿Existe alguna relación entre el tamaño del huevo (en mm) con el tamaño de la nidada (promedio de los huevos en la puesta) en el Yacaré Overo (*Caiman latirostris*)?
+
+Hipótesis:
+$H_0$ = $beta_0 + error$
+$H_1$ = $beta_0 + beta_1*X + error$
+
+
+Predicción: Se intuye que a medida que el tamaño del huevo aumenta, el tamaño de la nidada decrece, debido a que el huevo ocuparía más espacio dentro del útero de la madre, lo cual impediría que se formen más huevos.
+
+
+ii. 
+
+Variable Dependiente: tamaño del huevo. 
+
+
+Variable Independiente:tamaño nidada
+
+La variable independiente es el tamaño de la nidada debido a que esta puede ser el motivo por el cual el tamaño de los huevos se ve afectada.
+
+```{r}
+library(ggplot2)
+
+graf <- ggplot(data = coc, aes(y=egg_size,x=ClutchS))+
+        geom_line()+
+        theme_minimal()+
+        labs(title="Relación entre el tamaño del nido y el tamaño del huevo", y="Tamaño huevo", x="Tamaño nidada")+
+        theme(plot.title = element_text(hjust = 0.5))
+        
+
+
+graf
+
+
+```
+
+
+
+iii.
+```{r}
+
+
+
+norm_x <- shapiro.test(coc$ClutchS)
+
+norm_x
+
+norm_y <- shapiro.test(coc$egg_size)
+norm_y
+
+var.test(coc$ClutchS,coc$egg_size)
+```
+Asumiendo un nivel de significancia de 0.01, se observa que la variable independiente no sigue una distribución normal mientras que, la variable dependiente si sigue una distribución normal. Las variable no tiene varianzas iguales.
+
+iv.
+A pesar de que no se cumplen todos los supuestos para la regresión lineal, se realiza este modelo, cuyo estadístico de prueba es F.
+```{r}
+library(tidyverse)
+library(performance)
+library(broom)
+library(ggpmisc) 
+model  <- lm(coc$egg_size ~ coc$ClutchS, data = coc)
+tidy(model)
+glance(model)
+summary(model)
+
+
+
+check_normality(model)
+check_autocorrelation(model)
+check_heteroscedasticity(model)
+
+plot(check_normality(model),type="density")
+plot(check_autocorrelation(model))
+plot(check_heteroscedasticity(model))
+```
+Se observa que, aunque los datos de las variables dependiente e independiente no cumplen con el supuesto de normalidad ni con el de igualdad de varianzas,los supuestos del modelo si se cumplen, los cuales establecen que los residuos se distribuyen normalmente, son independientes y presentan homocedasticidad.
+
+
+V.
+
+```{r}
+library(ggpmisc)
+
+ggplot(data=coc, aes(x=ClutchS,y=egg_size))+
+  geom_point()+
+  geom_smooth(method=lm)+
+  theme_linedraw() +
+  labs(x="Tamaño nidada (mm)",y="Tamaño huevo (mm)",title="Regresión Lineal tamaño nidada vs tamaño huevo") +
+  stat_poly_eq(use_label(c("eq","r2","F","p.value", "n"))) 
+```
+
+
+
+###  2. Efecto de locomoción en anfibios [1.66 puntos]
+
+Usted quiere saber qué factores de la Rana Picuda, _Leptodactylus fuscus_, se encuentran asociadas al desempeño locomotor. Así mismo, tiene interés en estudiar si el tamaño corporal tiene relación con el peso. Los datos obtenidos se encuentran en la base de datos `costos.txt`.
+
+
+
+
+```{r}
+library(readr)
+cost <- read.table("costos.txt",header=TRUE)
+cost
+```
+i. 
+Pregunta Investigación: ¿Existe alguna asociación entre el desempeño locomotor (velmax) y las otras variables?
+
+Hipótesis:
+$H_0$ = $correlacion = 0$
+$H_1$ = $correlacion \ne 0$
+
+
+Predicción: Se intuye que el desempeño locomotor varía de forma inversamenta proporcional a las variables SVL, Peso y de forma proporcional a las Reservas Energéticas.
+
+
+ii. 
+
+No hay variable dependiente o independiente
+
+```{r}
+library(ggplot2)
+library(patchwork)
+
+graf_1 <- ggplot(data = cost, aes(y=svl_cm,x=velmax))+
+        geom_point()+
+        theme_linedraw()+
+        labs(title="Asociación con el desempeño locomotor vs SVL", y="SVL (cm)", x="Velocidad max")+
+        theme(plot.title = element_text(hjust = 0.5))
+        
+graf_2 <- ggplot(data = cost, aes(y=peso_g,x=velmax))+
+        geom_point()+
+        theme_linedraw()+
+        labs(title="Asociación con el desempeño locomotor vs Peso", y="Peso (g)", x="Velocidad max")+
+        theme(plot.title = element_text(hjust = 0.5))
+        
+graf_3 <- ggplot(data = cost, aes(y=Reservas_energeticas,x=velmax))+
+        geom_point()+
+        theme_linedraw()+
+        labs( title="Asociación con el desempeño locomotor vs Reservas energéticas",y="Reservas energéticas", x="Velocidad max")+
+        theme(plot.title = element_text(hjust = 0.5))
+        
+
+graf_1 
+graf_2 
+graf_3
+```
+En la gráfica que compara el desempeño locomotor con el SVL se logra observar que la nube de puntos luce de forma elíptica con una tendencia lineal positiva. 
+
+La gráfica que compara el desempeño locomotor con el peso muestra que la nube de puntos siguen una distribución aproximadamente circular.
+
+Finalmente la gráfica que compara el desempeño locomotor con las reservas energeticas se observa una nube de puntos con tendencia horizontal.
+
+iii.
+```{r}
+
+norm_SVL <-shapiro.test(cost$svl_cm)
+norm_peso <- shapiro.test(cost$peso_g)
+norm_reserv <- shapiro.test(cost$Reservas_energeticas)
+norm_vel <- shapiro.test(cost$velmax)
+
+norm_peso
+norm_SVL
+norm_reserv
+norm_vel
+
+
+```
+Según los resultados obtenidos a partir del test de Shapiro-Wilk solo los datos de reservas energéticas no presentan una distribución normal. 
+
+iv.
+De acuerdo con los resultados visuales de la distribución de las nubes de puntos para las diferentes variables en relación con el desempeño locomotor y el análisis de normalidad correspondiente, se determina que el método de correlación más adecuado es el de Pearson, excepto en el caso de la asociación entre reservas energéticas y desempeño locomotor. En este último caso, se empleará la correlación de Spearman, dado que la nube de puntos no presenta una distribución lineal ni normal.
+```{r}
+print("Correlación Desempeño Locomotor vs SVL")
+cor.test(cost$velmax,cost$svl_cm,method="pearson")
+
+print("Correlación Desempeño Locomotor vs Peso")
+cor.test(cost$velmax,cost$peso_g,method="pearson")
+
+print("Correlación Desempeño Locomotor vs Reservas Energéticas")
+cor.test(cost$velmax,cost$Reservas_energeticas,method="spearman")
+
+
+
+```
+El resultado de correlación entre el desempeño locomotor y el SVL es bastante débil, pues tiene una correlación positiva de 0.365, sin embargo, de acuerdo con el nivel de significancia elegido, se debe rechazar la hipótesis de que existe una correlación entre las dos variables, pueto que, el valor-p es ligeramente mayor a este, por lo tanto no se rechaza la hipótesis nula de que no hay correlación.
+
+Por otro lado, el resultado de correlación entre el desempeño locomotor y el peso sigue siendo una correlación positiva débil, no obstante, según el valor-p obtenido se puede rechazar la hipótesis nula de que no hay correlación.
+
+Finalmente, el resultado de correlación entre el desempeño locomotor y las reservas energéticas indica que, la correlación es positiva débil, en donde de acuerdo al valor-p que arroja el modelo no se puede rechazar la hipótesis nula de que no existe correlación.
+
+
+
+
+
+### 3. Efecto de múltiples variables en incendios forestales [1.66 puntos]
+
+El conjunto de datos `forestfires.csv` [Cortez & Morais, 2007](https://repositorium.sdum.uminho.pt/bitstream/1822/8039/1/fires.pdf) contiene información de los incendios ocurridos en el parque natural Montesinho, Portugal entre los años 2000 y 2003. Información más detallada de las variables de este conjunto de datos se puede encontrar en [Forest Fires Data Set](https://archive.ics.uci.edu/ml/datasets/Forest+Fires). 
+
+```{r}
+fore<-read.csv("forestfires.csv",header=TRUE)
+
+
+
+```
+
+
+**a.** **[0.83 puntos]** Determine el efecto del índice FFMC y el mes (de forma conjunta) sobre el área total quemada por el incendio.
+
+i. 
+Pregunta Investigación: ¿Existe algún efecto del índice FFMC y el mes sobre el área total quemada por el incendio)?
+
+Hipótesis:
+$H_0$ = $beta_0 + error$
+$H_1$ = $beta_0 + beta_1*FFMC + error$
+
+
+Predicción: Se intuye que a medida que a medida que aumenta el índice FFMC el área total quemada incrementa.
+
+
+ii. 
+
+Variable Independiente: índice FFMMC por mes
+
+
+Variable Dependiente: área total quemada
+
+La variable independiente es el área total quemada, ya que está se ve afectada por los cambios mes a mes del índice FFMC.
+
+
+```{r}
+
+
+
+
+graf_for <- ggplot(data = fore, aes(y=area,x=FFMC,color=month))+
+        geom_point()+
+        theme_minimal()+
+        labs(title="Relación entre el índice FFMC por mes vs el área total quemada", y="Área total quemada (ha)", x="Índice FFMC",color="Mes")+
+        theme(plot.title = element_text(hjust = 0.5))
+        
+
+
+graf_for
+
+
+```
+
+Se observa una relación positiva marcada a medida que el índice promedio de FFMC crece así mismo lo hace el promedio de área total quemada.
+
+iii.
+```{r}
+print("Normalidad de los índices promedio de FFMC")
+shapiro.test(fore$FFMC)
+
+
+
+print("Normalidad de los promedios totales de área quemada")
+shapiro.test(fore$area)
+
+
+
+
+```
+
+Según los resultados de normalidad para los datos, ninguno tiene un comportamiento normal.
+
+
+iv.
+
+Se elige el modelo estadístico de regresión lineal, donde el estadístico de prueba es F.
+```{r}
+
+model <- lm(area~FFMC*month, data=fore)
+
+tidy(model)
+glance(model)
+summary(model)
+
+
+
+check_normality(model)
+check_autocorrelation(model)
+check_heteroscedasticity(model)
+
+plot(check_normality(model),type="density")
+plot(check_autocorrelation(model))
+plot(check_heteroscedasticity(model))
+```
+
+Tras realizar el chequeo de los supuestos del modelol, se observa que estos cumplen. No obstante, el valor-p de la pendiente no rechaza la hipótesis nula de que este valor sea 0. Por ello, se empieza a intuir que FFMC no tiene un efecto significativo sobre esta variable.
+Postiormente se observa el valor-p del modelo, el cual indica que no se rechaza la hipótesis nula, es decir que, no hay una relación de causalidad entre el FFMC y el área total quemada. Esto mismo lo corrobora el R2, el cual es bastante bajo.
+
+v.
+```{r}
+ggplot(data=fore, aes(x=FFMC,y=area))+
+  geom_point()+
+  geom_smooth(method=lm)+
+  theme_linedraw() +
+  labs(y="Área total quemada (ha)",title="Área quemada vs Índices FFMC") +
+  theme(plot.title=element_text(hjust=0.5))+
+  stat_poly_eq(use_label(c("eq","r2","F","p.value", "n"))) 
+
+```
+Como se logra observar en la gráfica de regresión, el índice FFMC no tiene ningún efecto real sobre el área total quemada.
+
+
+
+
+**b.** **[0.83 puntos]** Determine el efecto de los índices FFMC, DMC e ISI el área total quemada por el incendio.
+
+i. 
+Pregunta Investigación: ¿Existe algún efecto del índice FFMC,  DMC e ISI y el mes sobre el área total quemada por el incendio)?
+
+Hipótesis:
+$H_0$ = $beta_0 + error$
+$H_1$ = $beta_0 + beta_1*FFMC + beta_2*DMC + beta_3*ISI + error$
+
+
+Predicción: Se intuye que a medida que a medida que aumenta el índice FFMC,ISI y DMC, el área total quemada incrementa.
+
+ii. 
+
+Variable Independiente: índice FFMMC,ISI,DMC 
+
+
+Variable Dependiente: área total quemada
+
+La variable independiente es el área total quemada, ya que está se ve afectada por los cambios mes a mes del índice FFMC.
+
+
+```{r}
+
+fore_a <- fore |> 
+          pivot_longer(cols=c(FFMC,ISI,DMC),names_to = "Variable",values_to = "Valor")
+
+shapes_list <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) 
+
+graf_for <- ggplot(data = fore_a, aes(y=area,x=Valor,color=Variable,shape=month))+
+        geom_point(size = 3, alpha =0.7)+
+        scale_shape_manual(values = shapes_list) +
+        theme_minimal()+
+        labs(title="Relación entre el índice promedio FFMC,ISI,DMC por mes vs el área total quemada", y="Área total quemada (ha)", x="Valores índices", color ="Índice", shape="Mes")+
+        theme( text = element_text(size = 11), 
+    axis.text = element_text(size = 11),
+    axis.title = element_text(size = 11),
+    legend.position = "bottom", 
+    legend.box = "horizontal",   
+    plot.title = element_text(size = 11, face = "bold", hjust = 0.5),  
+    plot.margin = margin(10, 10, 10, 10) )
+        
+
+
+graf_for
+
+
+```
+No se observa una relación muy clara entre los índices y los meses y el área total quemada.
+
+iii.
+```{r}
+
+print("Normalidad de los índices promedio de FFMC por mes")
+shapiro.test(fore$FFMC)
+
+
+print("Normalidad de los índices promedio de DMC por mes")
+shapiro.test(fore$DMC)
+
+print("Normalidad de los índices promedio de ISI por mes")
+shapiro.test(fore$ISI)
+
+print("Normalidad de los promedios totales de área quemada por mes")
+shapiro.test(fore$area)
+
+
+
+
+```
+Según los resultados de normalidad para los datos, ninguno tiene un comportamiento normal.
+
+iv.
+
+Se elige el modelo estadístico de regresión lineal, donde el estadístico de prueba es F.
+```{r}
+
+model <- lm(area~FFMC+DMC+ISI, data=fore)
+
+
+summary(model)
+
+tidy(model)
+glance(model)
+summary(model)
+ 
+check_normality(model)
+check_autocorrelation(model)
+check_heteroscedasticity(model)
+
+plot(check_normality(model),type="density")
+plot(check_autocorrelation(model))
+plot(check_heteroscedasticity(model))
+
+
+```
+Tras realizar el chequeo de los supuestos del modelo, se observa que no se cumplen. No obstante, el valor-p de las pendientes para cada índice no rechaza la hipótesis nula de que este valor sea 0. Por ello, se empieza a intuir que tanto el FFMC como el DMC y el ISI no tienen un efecto significativo sobre la variable de área total quemada.
+Posteriormente se observa el valor-p del modelo, el cual indica que no se rechaza la hipótesis nula, es decir que, no hay una relación de causalidad de las variables FFMC,DMC y ISI sobre el área total quemada. Esto mismo lo corrobora el R2, el cual es bastante bajo.
+
+v.
+
+```{r}
+
+
+graf_tot <- ggplot(data=fore_a, aes(x=Valor,y=area))+
+  geom_point()+
+  geom_smooth(method=lm)+
+  theme_linedraw() +
+  labs(y="Área total quemada (ha)",title="Regresión General: Área quemada vs Índices FFMC, DMC e ISI") +
+  theme(plot.title=element_text(hjust=0.5))+
+  stat_poly_eq(use_label(c("eq","r2","F","p.value", "n"))) 
+
+
+
+
+
+graf_part<-ggplot(data=fore_a, aes(x=Valor,y=area,color=Variable))+
+  geom_point()+
+  geom_smooth(method=lm)+
+  theme_linedraw() +
+  labs(y="Área total quemada (ha)",title="Área quemada vs Índices FFMC, DMC e ISI") +
+  theme(plot.title=element_text(hjust=0.5))+
+  stat_poly_eq(use_label(c("eq","r2","F","p.value", "n"))) 
+
+graf_tot
+
+graf_part
+
+
+```
+En la gráfica 1 se observa la regresión general, donde se recopilan todos los datos de las tres variables FFMC, ISI y DMC y su impacto conjunto sobre el área total quemada. Posteriormente, en la gráfica 2 se muestra de forma particular la regresión de cada una de las variables en contra del área total quemada. En ambas  gráficas se logra observar que ninguna de los índice tiene un impacto sobre el área total quemada.

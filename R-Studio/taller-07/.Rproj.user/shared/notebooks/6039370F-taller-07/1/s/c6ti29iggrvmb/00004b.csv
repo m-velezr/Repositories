@@ -1,0 +1,18 @@
+"0",""
+"0","boxplot_ard<- ggplot(ard, aes(x = environment, y = coneMass, fill = environment)) + "
+"0","  geom_boxplot(color='black') + "
+"0","  geom_jitter(width = 0.05, height = 0.05) + "
+"0","  ylab(""Tamaño Cono"") + "
+"0","  xlab(""Ambiente"") + "
+"0","  theme_bw()+"
+"0","  labs(title=""BoxPlot Ambiente vs Tamaño Cono"",fill=""Ambiente"")+ theme(plot.title = element_text(hjust=0.5))"
+"0",""
+"0",""
+"0","boxplot_ard"
+"2","Aviso en gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Mariana Velez/OneDrive - Universidad de los andes/Documentos/Universidad/8 semestre/Inferencia E Informática/Laboratorio/taller-07/.Rproj.user/shared/notebooks/6039370F-taller-07/1/E81E19F578af73ad/c6ti29iggrvmb_t/fcdc7da530634a23bf91238e879462c2.snapshot', probable reason 'No such file or directory'
+"
+"2","Error en gzfile(file, ""wb""): no se puede abrir la conexión
+"

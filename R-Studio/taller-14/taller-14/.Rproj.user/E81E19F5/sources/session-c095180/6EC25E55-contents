@@ -1,0 +1,37 @@
+---
+title: "Taller 14 - Filogenética"
+author: 
+ - Integrante 1
+ - Integrante 2
+ - Integrante 3
+date: today
+format: html
+lang: es
+fig-align: center
+df-print: paged
+toc: true
+---
+
+Complete los pasos que se indican en el taller al final de la guía. Una vez los complete reporte en este documento los comandos y resultados obtenidos. Puede hacer uso de los bloques de código para mostrar los comandos y las salidas de los mismos.
+
+### A. Obtención y preparación de secuencias. \[1.00 puntos\]
+
+1.  **¿Cuántas secuencias son?**
+
+    Son 2 secuencias
+
+2.  **¿Qué tipo de secuencias (nucleótidos/proteínas), a qué organismos pertenecen las secuencias y a qué función están asociadas? [¿En qué genomas está ubicado este gen?]{.underline} Puede encontrar toda esta información en la base de datos PopSet.**
+
+    La secuencia HQ122450.1 pertenece al organismo Enchelycore carychroa y hace parte de la unidad del citocromo oxidasa de la mitocondria.
+
+    La secuencia HQ122478.1 pertenece al organismo Uropterygius macrocephalus y hace parte de la unidad del citocromo oxidasa de la mitocondria.
+
+3.  [**Enraíce el árbol mediante la búsqueda de una secuencia *outgroup*. Responda ¿Qué y por qué escogió esa secuencia como *outgroup*?**]{.underline}
+
+    Se eligió el organismo Danio Rerio ......
+
+### B. Alineamiento de secuencias. \[1.00 puntos\]
+
+### C. Reconstrucción de árboles NJ y Parsimonia \[1.00 puntos\]
+
+### D. Reconstrucción de árbol de Máxima verosimilitud. \[2.00 puntos\]

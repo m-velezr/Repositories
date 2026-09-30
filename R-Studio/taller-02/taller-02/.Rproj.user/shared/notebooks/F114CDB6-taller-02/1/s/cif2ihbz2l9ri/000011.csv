@@ -1,0 +1,3 @@
+"0","midwest_etn <- midwest |> "
+"0","                select(county,state,area,poptotal,popwhite,popblack,popamerindian,popasian,popother,inmetro,category) "
+"0","midwest_etn"

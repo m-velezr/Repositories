@@ -1,0 +1,5 @@
+"0"," "
+"0",""
+"0","midwest_f <- midwest |>"
+"0","            mutate(Proporcion_White = popwhite/poptotal, Porporcion_Black = popblack/poptotal, Proporcion_Amerindian=popamerindian/poptotal, Proporcion_Asian = popasian/poptotal, Proporcion_other = popother/poptotal)"
+"0","midwest_f"

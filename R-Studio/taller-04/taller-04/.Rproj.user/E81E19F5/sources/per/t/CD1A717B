@@ -1,0 +1,28 @@
+{
+    "id": "CD1A717B",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1740408921283.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "id": "896bd8747c384f999c419888a6d27a78",
+        "name": "pruebaNorm_NT",
+        "title": "pruebaNorm_NT",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 7453285255590469993,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1740408921283,
+    "read_only": false,
+    "read_only_alternatives": []
+}

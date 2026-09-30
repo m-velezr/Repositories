@@ -1,0 +1,8 @@
+"0",""
+"0","ggplot(graf,aes(x=hgt,fill=genero))+"
+"0","  geom_histogram(color=""grey"")+"
+"0","  facet_wrap(~genero)+"
+"0","  labs(title=""Distribución de Altura por Género"",x=""Altura"", y=""Cantidad"",fill=""Género"")+"
+"0","  scale_fill_manual(values=c(""Hombre""=""blue"",""Mujer""= ""pink""))+"
+"0","  theme(plot.title=element_text(size=16, hjust=0.5),"
+"0","        legend.title=element_text(hjust=0.5))"

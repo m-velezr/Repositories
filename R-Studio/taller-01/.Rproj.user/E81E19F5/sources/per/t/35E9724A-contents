@@ -1,0 +1,188 @@
+---
+title: "Taller 01 - Introducción a **R**"
+author: 
+ - Raquel Nupia
+ - Mariana Vélez
+date: "`r Sys.Date()`"
+format: html
+lang: es
+---
+
+### 1. Operaciones básicas con vectores \[1.0 puntos\].
+
+Construya un vector de nombre `prueba` con los siguientes valores: 11, 15, 21.3, 19.9.
+
+```{r}
+prueba <- c(11,15,21.3,19.9)
+prueba
+```
+
+Realice las siguientes operaciones usando la notación de **R**:
+
+a.  $prueba^{3}$
+
+```{r}
+prueba^3
+
+```
+
+b.  $2*(prueba+3*prueba^{3})-1$
+
+```{r}
+2*(prueba + 3*prueba^{3})-1
+
+```
+
+c.  $\log{\frac{prueba^{2}}{2*prueba^{4}}}$
+
+```{r}
+
+log(prueba^2/(2*prueba^4))
+
+```
+
+d.  Multiplique el primer elemento del vector `prueba` por el tercer elemento del vector `prueba`.
+
+```{r}
+prueba[1]*prueba[3]
+
+```
+
+### 2. Vectores y cadenas de caracteres \[1.0 puntos\].
+
+Cree un vector llamado `texto` que contenga las palabras: poblacion y ciudad (sí, sin tilde) en el bloque de código a continuación:
+
+```{r}
+texto <- c("poblacion","ciudad")
+texto
+
+
+```
+
+a.  Use una función que muestre el contenido del vector `texto`.
+
+```{r}
+
+print(texto)
+
+```
+
+b.  Determine el tipo del vector `texto`.
+
+```{r}
+mode(texto)
+
+```
+
+c.  Determine la longitud del vector `texto`.
+
+```{r}
+length(texto)
+
+```
+
+### 3. Creando *Data Frames* en R directamente \[1.0 puntos\]
+
+En un experimento de laboratorio, individuos de una especie de peces fueron sometidos a tres tipos de tratamiento:
+
+-   Tratamiento 1: Los peces fueron puestos en agua con solución salina.
+-   Tratamiento 2: Los peces fueron puestos en agua con pH bajo.
+-   Tratamiento 3: Los peces fueron puestos en agua con pH alto.
+
+Para cada uno de los tratamientos se utilizaron 4 acuarios con 10 individuos cada uno, para un total de 12 acuarios. La siguiente tabla muestra el número de individuos que sobrevivieron en cada acuario al terminar el experimento.
+
+::: callout-note
+Cada casilla corresponde al número de individuos que sobrevivieron en un acuario y cada acuario ha sido sometido a un solo tratamiento.
+:::
+
+**Tabla 1.** Marco de datos a crear.
+
+| Solución salina | pH bajo | pH alto |
+|-----------------|---------|---------|
+| 1               | 1       | 5       |
+| 1               | 2       | 4       |
+| 1               | 3       | 4       |
+| 1               | 1       | 2       |
+
+Ingrese los datos anteriores como un marco de datos directamente en **R** (no lo haga desde Excel), organizando el *dataframe* correctamente. **Ayuda:** Para introducir los datos manualmente funciones como `rep()` pueden ser muy útiles.
+
+### 4. Importar datos a R en *Data frames* \[1.0 puntos\].
+
+Importe el archivo `especies.xlsx` a R como un marco de datos `dataframe`. Estos datos corresponden a un estudio donde se midió la probabilidad de presencia para ciertas especies de ranas. Adicionalmente una medida de la variación en los datos fue incluida.
+
+```{r}
+
+solucion_salina <- rep(1,4)
+bajo <- c(1,2,3,1)
+alto <- c(5,4,4,2)
+
+datos <- data.frame(solucion_salina,bajo,alto)
+print(datos)
+
+library(readxl)
+
+data <- read_xlsx("especies.xlsx")
+data
+
+
+
+
+
+
+```
+
+Una vez haya importado los datos:
+
+a.  Cree un set de datos donde seleccione los resultados obtenidos únicamente para la especie *S. phaeota*.
+
+```{r}
+
+set_dat <- subset(data,Especie =="S_phaeota")
+set_dat
+
+```
+
+b.  Cree un *set* de datos donde seleccione sólo los resultados obtenidos para las Zonas 1 y 2.
+
+```{r}
+zon_dat <- subset(data,(Zona == 1 | Zona ==2))
+
+zon_dat
+```
+
+### 5. Gráficas de frecuencia o histogramas \[1.0 puntos\].
+
+Utilizando el set de datos del punto anterior realice:
+
+a.  Un histograma de la probabilidad de presencia de todas las especies en todas las zonas.
+
+```{r}
+
+limpio = subset(data,data$Prob_presencia!="NA")
+
+
+
+hist(as.numeric(limpio$Prob_presencia), main ="Histograma de Probabilidad de Presencia", xlab = "Probabilidad de Presencia", ylab= "Frecuencia", col = "skyblue")
+
+```
+
+b.  Una serie de histogramas de la probabilidad de presencia de todas las especies en cada una de las zonas.
+
+```{r}
+
+zonas <- unique(data$Zona)
+
+limpio = subset(data,data$Prob_presencia !="NA")
+
+print(length(zonas))
+  
+for (i in 1:length(zonas)){
+  fin = subset(limpio,zonas[i]==Zona)
+  hist(as.numeric(fin$Prob_presencia),main =paste("Histograma de Probabilidad de Presencia Zona",i) , xlab = "Probabilidad de Presencia", ylab= "Frecuencia", col = "skyblue")
+  
+ 
+  
+  
+}
+
+```

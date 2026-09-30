@@ -1,0 +1,12 @@
+"0","datos_rec <- pol |> "
+"0","              specify(Received ~ Ants) |>"
+"0","              calculate("
+"0","                stat = ""diff in means"","
+"0","                order = c(""0"",""1"")"
+"0","              )"
+"0",""
+"0","datos_rec"
+"1","Response: Received (numeric)
+Explanatory: Ants (factor)"
+"1","
+"

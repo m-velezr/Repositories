@@ -1,0 +1,6 @@
+"0",""
+"0","limpio = subset(data,data$Prob_presencia!=""NA"")"
+"0",""
+"0",""
+"0",""
+"0","hist(as.numeric(limpio$Prob_presencia), main =""Histograma de Probabilidad de Presencia"", xlab = ""Probabilidad de Presencia"", ylab= ""Frecuencia"", col = ""skyblue"")"

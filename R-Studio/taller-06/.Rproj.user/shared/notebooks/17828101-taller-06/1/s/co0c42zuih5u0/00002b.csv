@@ -1,0 +1,16 @@
+"0",""
+"0","boots_rec |> "
+"0","  visualize()+"
+"0","  shade_confidence_interval(endpoints=IC_rec)+"
+"0","  labs(y= ""Frecuencia"", x = ""Diferencia Medias Tinta Recibida"" , title =""Distribución Muestral Tinta Recibida"")+"
+"0","  geom_vline(data = datos_rec, aes(xintercept = stat), color = ""black"",linetype = ""dotted"")+"
+"0","        geom_text(data= datos_rec, aes(label= ""M0-M1"",x=stat),y = .1, color = ""black"", vjust = -4,size=3,hjust=-0.0000001)+"
+"0","        theme(plot.title = element_text(hjust = 0.5))+"
+"0","        scale_color_manual(values = c(""Diferencia de Medias Observada"" = ""black""))"
+"2","Aviso en gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Mariana Velez/OneDrive - Universidad de los andes/Documentos/Universidad/8 semestre/Inferencia E Informática/Laboratorio/taller-06/.Rproj.user/shared/notebooks/17828101-taller-06/1/E81E19F58fc046e6/co0c42zuih5u0_t/430459cb29ab4c14b56c85f2fd9e76a6.snapshot', probable reason 'No such file or directory'
+"
+"2","Error en gzfile(file, ""wb""): no se puede abrir la conexión
+"

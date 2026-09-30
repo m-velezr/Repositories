@@ -1,0 +1,150 @@
+---
+title: "Taller 10 - Unix and HPC"
+author: 
+ - Integrante 1
+ - Integrante 2
+date: today
+format: html
+lang: es
+fig-align: center
+df-print: paged
+toc: true
+---
+
+Complete los pasos que se indican en el taller al final de la guía. Una vez los complete reporte en este documento los comandos y resultados obtenidos. Puede hacer uso de los bloques de código para mostrar los comandos y las salidas de los mismos.
+
+### 1. Navegando y moviendo archivos en terminal. Recuerde responder las preguntas. \[1.5 puntos\].
+
+#### a.Cambie al directorio Talleres utilizando el comando cd. Luego entre al directorio Taller-09.
+
+#### b. Examine los contenidos del directorio actual utilizando ls.
+
+cd Secciones -\> ls -\> cd seccion-01 -\> ls -\> mkdir grupo-03 -\> cd grupo-03 -\> cp -r \~/Talleres/Taller-10/ . -\> cd Taller-10 -\> ls -\> Datos1 Datos1.tgz
+
+####c. Ahora utilice el comando ls -lh. ¿Cuál es la diferencia con el comando anterior?
+
+ls solo muestra los archivos y las carpetas del directorio actual y ls -lh (h signiifca human readable) es una forma de visualizar los datos mas detalladamente, incluyendo los tamaños de los archivos
+
+####d. Visualice la ruta del directorio actual con el comando pwd.
+
+pwd -> /hpcfs/home/cursos/biol2205/Secciones/seccion-01/grupo-03/Taller-10
+
+####e. ¿A dónde lo lleva el comando cd .. y el comando cd ~? Vuelva al directorio HOME
+
+El comando cd .. te devuelve una carpeta atrás en el directorio, sirve para hallar la ruta relativa. El comando cd ~ regresa al directamente al home (directorio principal).
+
+
+####f. Entre al directorio correspondiente a su sección de laboratorio nombrado según esta. Cree la siguiente estructura de archivos con el comando mkdir:
+
+cd .. -> mkdir Raquel-Nupia -> mkdir -p Raquel-Nupia/{files,scripts,tasks} -> mkdir Mariana-Velez -> mkdir -p Mariana-Velez/{files,scripts,tasks}
+
+####g. Utilice cp para copiar el archivo Datos1.tgz (ubicado en el directorio ~/Talleres/Taller-01) a su carpeta del grupo. (tenga cuidado de corromper los archivos)
+
+Ya se realizó en el punt a y b
+
+####h. Descomprima el archivo Datos1.tgz, que ya está en su carpeta, con el comando tar -xzvf. ¿Para qué sirven los flags -xzvf?
+
+cd Taller-10 -> tar -xzvf Datos1.tgz -> Datos1/
+Datos1/TAIR10_pep_20101214.fasta
+Datos1/lambda_virus.fa
+
+Cada letra del flag tiene un significado:
+x -> extract, extrae los archivos del tar
+z -> gzip, indica que el archivo esta comprimido con gzip
+v -> verbose, muestra que los archivos están siendo extraídos uno por uno
+f -> file, indica que al final se va a poner el nombre del archivo.
+
+### 2. Visualizando y manipulando archivos: `TAIR10_pep20101214.fasta` (*Arabidopsis thaliana*). \[1.5 puntos\].
+
+####a. Visualice el archivo TAIR10_pep_20101214.fasta. Puede emplear alguno de los comandos cat, head, more o less. ¿Qué diferencias hay entre estos comandos?
+
+cd Secciones/seccion-01/grupo-03/Taller-10/Datos1 ->
+
+cat TAIR10_pep20101214.fasta : muestra todo el archivo directamente en la terminal.
+
+head TAIR10_pep20101214.fasta: muestra las primeras 10 líneas a menos que especifiques cuántas quieres ver.
+
+more TAIR10_pep20101214.fasta: muestra el archivo por partes. Te permite avanzar a tu ritmo. Solo permite ver el archivo hacia abajo.
+
+less TAIR10_pep20101214.fasta: muestra el archivo por partes. Te permite avanzar a tu ritmo. Permite ver el archivo hacia abajo y hacia arriba.
+
+####b. Sabiendo que las proteínas se encuentran en formato FASTA, y por ende los encabezados de las secuencias siempre comienzan por ”>”, utilice el comando grep para obtener los nombres de dichas proteínas.
+
+grep ">" TAIR10_pep20101214.fasta
+
+####c. ¿Cuántas proteínas hay en ese archivo? Utilice la opción -c del comando grep.
+grep -c ">" TAIR10_pep20101214.fasta
+35386
+
+####d.Resuelva la pregunta anterior empleando el comando grep | wc -l (wc es un comando por aparte, no hace parte de grep). Describa para qué sirve el operador | .
+
+grep ">" TAIR10_pep_20101214.fasta | wc -l
+35386
+
+El operador | indica que la salida del comando anterior será la entrada del siguiente comando. 
+
+####e. Guarde los nombres de las proteínas (resultado del anterior paso) en un nuevo archivo empleando el operador de redirección >. Describa para qué sirve el operador >.
+
+grep ">" TAIR10_pep_20101214.fasta > nombres.txt
+
+### 3. Corriendo scripts en Bash. \[1.5 puntos\].
+
+####a.¿Qué significa que el manejador de trabajos o colas sea SLURM? Explore en internet cuáles son los comandos básicos para utilizar este sistema. ¿Para qué se utilizan sbatch, srun, scancel, y squeue? También puede usar el comando man para determinar qué hacen y qué argumentos toman estos y otros comandos.
+
+SLURM es un sistema de gestión de trabajos que es utilizado por clústeres de computación de alto redimiento. Su función principal es administrar los recursos entre múltiples usuarios y trabajos para lograr un uso eficiente.
+
+sbatch se utiliza para enviar scripts de trabajos a la cola de trabajos de SLURM
+
+srun se utiliza para ejecutar comando o programas en los nodos asignados por SLURM. Se utiliza en trabajos interactivos o para lanzar tareas dentro de scripts.
+
+scancel este comando permite cancelar trabajos que están en ejecución o en lista de espera en la cola de SLURM. Solo un administrador o el usuario que envío el trabajo puede hacerlo.
+
+squeue este comando muestra el estado actual de los trabajos en la cola de SLURM y la información relacionada con el  trabajo.
+
+
+####b. Explique cómo se especifican los recursos requeridos en una sesión interactiva. ¿Para qué sirve modificar estos valores de los argumentos?
+
+Cuando se lanza una sesión interactiva, se especifican los recursos requeridos (CPU, memoria, timepo) usando el comando srun, ya que de esta forma se le permite al sistema asignar un entorno interactivo en los nodos de cómputo según las condiciones que se necesitan.
+
+Al modificar estos argumentos se evita el uso excesivo de recursos, se asegura que la tarea tenga lo necesario y optimizar el tiempo de espera en la cola, entre otros.
+
+####c.¿Qué particiones existen y qué límites de tiempo y capacidad de memoria RAM tiene cada una? ¿Para una corrida de prueba, qué partición usaría. Explique?
+
+Las particiones con agrupaciones lógicas de nodos que tienen definidos ciertos recursos como tiempo máximo de ejecución, memoria disponible, tipo de hardware. 
+
+Las particiones que existen son:
+Cluster de 1 GB
+Limited de 1 GB
+gpu variable
+hpg-dev variable
+bigmen alta capacidad
+
+Para una corrida de prueba usaría hpg-dev o limited ya que, ambas sirven para trabajos de poca duración.
+
+####d.Use el archivo testjob.sh que ya se encuentra en el directorio de inicio. Examine detalladamente el encabezado del script. ¿Qué información/parámetros especifica? Copie el archivo testjob.sh a la carpeta scripts dentro de su carpeta personal.
+
+cp scripts/testjob.sh  Secciones/seccion-01/grupo-03/Mariana-Velez/scripts
+
+cp scripts/testjob.sh  Secciones/seccion-01/grupo-03/Raquel-Nupia/scripts
+
+####e. Utilice el comando chmod +x para darle permiso de ejecución a testjob.sh. ¿Para qué sirven los flags <+|->rwx?
+
+r: read
+w: write
+x: execute
+
++: agrega el permiso
+-:remueve el permiso
+=:establece exactamente esos permisos y quita los otros
+
+####f. Ahora sí, ejecute el script testjob.sh de la siguiente manera: bash testjob.sh o simplemente ./testjob.sh, ¿qué aparece impreso en la terminal? Consulte qué es el standard output y el standard error en el contexto de ejecución de un programa.
+Soy un JOB de prueba
+Corri en la maquina: nodea-6
+Corri el: Wed Apr 16 10:57:19 -05 2025
+Ejecutando Script de R 
+
+ Si tuviera un script lo ejecutaría asi: R CMD BATCH saludo.R 
+
+Finalicé la ejecución del script 
+
+### 4. Creando scripts en Bash. \[0.5 puntos\]

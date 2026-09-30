@@ -1,0 +1,5 @@
+"0","graph_sc <- storms_interest |> "
+"0","            select(name,pressure,wind,category)"
+"2","Error en select(storms_interest, name, pressure, wind, category): 
+  no se pudo encontrar la función ""select""
+"

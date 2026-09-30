@@ -1,0 +1,4 @@
+"0","var_nidos <- datos |> "
+"0","  filter(Especie==""Caretta_caretta"") |> "
+"0","  summarise(""Varianza""=var(Tem.prom_nidos,na.rm=TRUE))"
+"0","var_nidos"

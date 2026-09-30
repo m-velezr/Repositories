@@ -1,0 +1,13 @@
+tipo:Extra:16000:14.1875
+tipo:Corriente:14500:4.310344827586206
+tipo:Diesel:10000:0.0
+tipo:Plus:15000:0.0
+surtidor:Ingrid:Extra:0.0:Corriente:0.0:Diesel:0.0:Plus:0.0
+surtidor:Nicolás:Extra:0.0:Corriente:0.6896551724137931:Diesel:0.0:Plus:3.0
+surtidor:Gilberto:Extra:0.0:Corriente:0.0:Diesel:10.0:Plus:0.0
+surtidor:Gilberto:Extra:0.8125:Corriente:0.0:Diesel:0.0:Plus:0.0
+empleado:Gilberto:113000
+empleado:Camilo:0
+empleado:Michel:0
+empleado:Ingrid:0
+empleado:Nicolás:55000

@@ -1,0 +1,5 @@
+"0",""
+"0","library(tidyverse)"
+"0","storms_noNA <- storms |> "
+"0","              drop_na(ts_diameter,hu_diameter)"
+"0","storms_noNA"

@@ -1,0 +1,13 @@
+"0","densidad_ard <- ggplot(ard, aes(coneMass, fill=environment)) + "
+"0","  facet_wrap(vars(environment)) +"
+"0","  geom_density() + "
+"0","  labs(x = 'Tamaño Cono', y = 'Frecuencia',fill=""Ambiente"", title = ""Gráfica de Densidad"") +"
+"0","  theme_bw()+ theme(plot.title = element_text(hjust=0.5))"
+"0","densidad_ard"
+"2","Aviso en gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Mariana Velez/OneDrive - Universidad de los andes/Documentos/Universidad/8 semestre/Inferencia E Informática/Laboratorio/taller-07/.Rproj.user/shared/notebooks/6039370F-taller-07/1/E81E19F578af73ad/c6ti29iggrvmb_t/b2dcb249fdec4ff89736054280a10494.snapshot', probable reason 'No such file or directory'
+"
+"2","Error en gzfile(file, ""wb""): no se puede abrir la conexión
+"

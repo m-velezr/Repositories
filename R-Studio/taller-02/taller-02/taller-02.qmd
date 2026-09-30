@@ -1,0 +1,229 @@
+---
+title: "Taller 02 - Introducción al Tidyverse"
+author: 
+ - Mariana Vélez
+ - Raquel Nupia
+date: today
+format: html
+lang: es
+fig-align: center
+df-print: paged
+---
+
+Dentro de la carpeta del laboratorio de esta semana se encuentran archivos de datos con los nombres: `storms` y `midwest`.
+
+### 1. Explorando el conjunto de datos `storms` [2.5 puntos].
+
+El conjunto de datos `storms` es un subconjunto de datos del [NOAA Antlantic hurricane database](https://www.nhc.noaa.gov/data/#hurdat). Estos datos incluyen la posición y las características de 198 tormentas tropicales registrados cada 6 horas durante el tiempo de vida de la tormenta. Por claridad, la variable *ts_diameter* indica el diámetro del área donde se están experimentando vientos con magnitud de tormenta tropical (34 nudos o más) y la variable *hu_diameter* indica el diámetro del área donde se están experimentando vientos con magnitud de huracán (64 nudos o más).
+
+a. ¿Cuál es la extensión del archivo `storms`?, averigúe sobre este tipo de archivo y describa brevemente lo que observa al intentar abrir dicho archivo en su computador 
+
+:::{.callout-tip}
+si no está familiarizado con el tipo de archivo, intente primero abrirlo con un editor de texto. 
+:::
+
+La extensión del archivo es "rds". Este tipo de archivo está diseñado para almacenar y recuperar objetos de R de manera eficiente.
+
+
+b. Importe el conjunto de datos `storms`. Revíselo brevemente. ¿Cuantas filas y columnas tiene?
+```{r}
+
+ storms <- readRDS("storms.rds")
+ storms
+ 
+
+```
+El archivo "storms" tiene 10,010 filas y 13 columnas.
+
+c. ¿Desde qué año y hasta qué año hay registros de tormentas en `storms`?
+
+Desde 1975 hasta 1983
+
+d. Vemos que en las columnas *ts_diameter* y *hu_diameter* hay una gran cantidad de valores `NA`. ¿Esto quiere decir que esas tormentas no tenían diámetro? ¿Cual es el significado de estos valores `NA` en este conjunto de datos.
+
+Los valores "NA" dentro las columnas indican que no se registraron valores para esas observaciones.Por ende, no significa que las tormentas no tengan diámetro.
+
+e. Queremos explorar el diámetro de las tormentas, así que solamente podemos enfocarnos en las observaciones que cuentan con mediciones para estás variables. Elimine todas las observaciones que poseen valores `NA` para estas medidas. ¿Con cuántas observaciones queda?
+```{r}
+
+library(tidyverse)
+storms_noNA <- storms |> 
+              drop_na(ts_diameter,hu_diameter)
+storms_noNA
+
+```
+Queda un total de 3,482 observaciones.
+
+f. De las tormentas registradas en `storms_noNA`, cree un subconjunto de datos con la información de únicamente 7 tormentas de su elección.
+```{r}
+storms_interest <- storms_noNA |> 
+                  filter(name == "Alex" | name == "Bonnie" | name == "Charley" |name=="Danielle"| name == "Gaston" | name == "Hermine" | name == "Ivan") 
+
+  
+storms_interest
+
+```
+
+g. En una sola gráfica, muestre la distribución de las medidas del diámetro del área donde se experimental vientos con magnitud de tormenta tropical. Además, discrimine estas observaciones según el estatus de la tormenta. Solamente represente esta información para las tormentas que escogió en el punto anterior. Arregle el nombre de las etiquetas para que sea más comprensible. Agregue una leyenda que describa la representación que acaba de crear. ¿Cuál es la tormenta que mayor variación presentó en su diámetro estando en estadio de "tormenta tropical"?
+```{r}
+
+
+#Parte 1
+storms_graph <- storms_interest |> 
+  filter(status == "tropical storm") |>
+  select(name, ts_diameter)
+
+
+
+ggplot(data = storms_graph, mapping = aes(y=ts_diameter, x = name))+
+  geom_boxplot(fill = "lightblue",
+    color = "darkblue")+
+  theme_minimal() +
+  labs(title = "Distribución del Diámetro de Tormentas",
+       y = "Diámetro",
+       x = "Nombre de la Tormenta")+
+  theme(plot.title = element_text(hjust = 0.5)) 
+ 
+
+#Parte 2
+
+storms_graph2 <- storms_interest |>
+                  select(name, ts_diameter,status)
+
+ggplot(storms_graph2, aes(x = name, y = ts_diameter,color=status) )+
+  geom_point( )+
+  labs(title="Distribución del Diámetro de Tormentas",
+      y = "Diámetro",
+      x="Nombre de la Tormenta",
+      color = "Estado de Tormenta")+
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.title = element_text(hjust=0.5) )+
+  scale_color_discrete(labels = c("hurricane"="Huracán", "tropical depression"= "Depresión Tropical", "tropical storm" = "Tormenta Tropical"))
+ 
+
+```
+La tormenta que mayor variación presentó en su diámetro en un estado de tormenta tropical fue Danielle.
+
+
+h. Utilizando el conjunto de datos `storms_interest`, haga un *scatter plot* graficando *pressure* contra *wind*. Haga que el tamaño de los puntos cambié de acuerdo a la variable *category*. Discrimine el color de los punto de acuerdo al nombre de la tormenta (*name*). Describa los patrones que se observan en la gráfica. Arregle el nombre de las etiquetas para que sea más comprensible. Agregue una leyenda que describa la representación que acaba de crear.
+
+```{r}
+graph_sc <- storms_interest |> 
+            select(name,pressure,wind,category)
+graph_sc
+
+ggplot(graph_sc,aes(x=wind,y=pressure,size = category,color= name))+
+  geom_point()+
+  labs(title="Presión vs Viento",
+       x = "Viento",
+       y = "Presión",
+       size = "Categoría Tormenta",
+       color = "Nombre Tormenta")+
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.title = element_text(hjust=0.5))
+
+
+```
+En la gráfica se observa que a mayores vientos aumenta la categoría y menor es la presión reportada. Es decir que la relación entre el viento y la presión es lineal negativa.
+
+
+
+***
+
+### 2. Explorando el conjunto de datos `midwest` [2.5 puntos].
+
+`midwest` es un conjunto de datos que contiene información demográfica de los condados de la región "midwest" obtenida del censo del año 2000 de EEUU (Fuente: https://cran.r-project.org/web/packages/acs/index.html).
+
+a. ¿Cuál es la extensión del archivo `midwest`?, averigüe sobre este tipo de archivo y describa brevemente lo que observa al intentar abrir dicho archivo en su computador.
+
+El archivo midwest es un archivo .xlsx. Esto indica que es un archivo de tipo Excel. Al abrirlo se observa una serie de columnas con su respectivo encabezado. 
+
+b. Importe el conjunto de datos `midwset`. Inspecciónelo brevemente. ¿Cuantas filas y columnas tiene?
+```{r}
+library(readxl)
+midwset <- read_xlsx("midwest.xlsx")
+midwest
+
+
+```
+El archivo "midwest" tiene 437 filas y 28 columnas.
+
+
+c. Grafique el número de condados que hay por cada categoría. Además, discrimine su visualización de tal forma que se pueda distinguir por estados en cada categoría. También, separe su visualización en dos gráficas, una con los condados considerados en un área metropolitana y otra con los condados que no son considerados en un área metropolitana (esta información se encuentra en la columna *inmetro*). Arregle el nombre de las etiquetas para que sea más comprensible. Agregue una leyenda que describa la representación que acaba de crear. ¿Cuál es el estado con mayor número de condados que no hacen parte de un área metropolitana que hacen parte de la categoría *AAR*?
+
+
+
+```{r}
+ library(dplyr)
+
+
+
+data <- midwest |>
+  mutate(metropolitan_status = case_when(
+    inmetro == 0 ~ "No Metropolitano",
+    inmetro == 1 ~ "Metropolitano"
+  )) |> 
+  summarise(ncounty = n(), .by = c(category, state, metropolitan_status)) 
+
+
+
+ggplot(data, aes(x = state, fill = category, y = ncounty)) +
+  geom_col() +
+  facet_wrap(~metropolitan_status)+
+  labs(x="Estado", y = "No. Condados", fill = "Categoría")
+
+
+```
+
+El estado con mayor número de condados que no hacen parte de un área metropolitana y hacen parte de la categoría AAR es IL seguido de WI.
+
+
+d. Seleccione únicamente las variables *county*, *state*, *area*, *poptotal*, *popwhite*, *popblack*, *popamerindian*, *popasian*, *popother*, *inmetro* y *category*.
+```{r}
+midwest_etn <- midwest |> 
+                select(county,state,area,poptotal,popwhite,popblack,popamerindian,popasian,popother,inmetro,category) 
+midwest_etn
+```
+
+e. Colapse las columnas con información de población por grupo étnico en una columna que indique la el grupo étnico y otra que indique su respectivo valor de población.
+```{r}
+library(tidyr)
+
+midwest_e <- midwest |>
+  
+              pivot_longer(cols=c(popwhite,popblack,popamerindian,popasian,popother), names_to="Grupo_etnico", values_to ="Valor_pob" ) 
+  
+  
+            
+midwest_e
+  
+```
+
+f. Calcule la proporción poblacional de cada grupo étnico en cada condado. (proporción = subconjunto/total).
+```{r}
+ 
+
+midwest_f <- midwest |>
+            mutate(Proporcion_White = popwhite/poptotal, Porporcion_Black = popblack/poptotal, Proporcion_Amerindian=popamerindian/poptotal, Proporcion_Asian = popasian/poptotal, Proporcion_other = popother/poptotal)
+midwest_f
+```
+
+g. Exporte la tabla midwest_etn a un archivo de Excel (pista: utilice el paquete [writexl](https://docs.ropensci.org/writexl/), no se le olvide descargarlo antes de intentar cargarlo).
+```{r}
+library(writexl)
+
+write_xlsx(midwest_etn, "midwest_etn.xlsx")
+```
+
+h. Calcule la población total por estado. Organice sus resultados de menor a mayor. ¿Cuál es el estado con mayor población?
+```{r}
+library(dplyr)
+midwest_poptot <- midwest |> 
+                  group_by(state)|>
+                  summarise(Poblacion_Total_Por_Estado = sum(poptotal, na.rm = TRUE))|>
+                  arrange(Poblacion_Total_Por_Estado)
+midwest_poptot
+                
+
+
+```

@@ -1,0 +1,1 @@
+{"height":316.4400494437577,"width":512.0,"dpi":-1.0,"size_behavior":0,"conditions":[[1,"Aviso: \u001B[38;5;232mRemoved 5 rows containing non-finite outside the scale\nrange (`stat_smooth()`).\u001B[39m"],[1,"Aviso: \u001B[38;5;232mRemoved 5 rows containing missing values or values outside\nthe scale range (`geom_point()`).\u001B[39m"]]}

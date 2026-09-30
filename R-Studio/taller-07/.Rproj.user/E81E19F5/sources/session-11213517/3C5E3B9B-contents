@@ -1,0 +1,256 @@
+---
+title: "Taller 07"
+subtitle: "ANOVA & Kruskal-Wallis"
+author: 
+ - Integrante
+date: today
+format: html
+lang: es
+---
+
+En **todos** los puntos del taller **debe** realizar todos los siguientes pasos:
+
+i. Explorar visualmente la distribución del conjunto de datos asociado a la investigación.
+ii. Plantear la hipótesis nula y la alternativa teniendo en cuenta la pregunta de investigación mencionada.
+iii. Defina el nivel de significancia ($\alpha$) y justificar su selección.
+iiv. Evaluar la normalidad de las variables que lo requieran.
+v. Escoger la prueba estadística adecuada (validar que se cumplan todos los supuestos para su selección).
+
+## 1. Ardillas y Pinos [2.5]
+
+Los datos `pines-squirrels.tsv` representan el tamaño de cono (masa) de una especie de pino en 16 sitios de estudio en tres tipos de ambientes en el occidente de USA (Edelaar & Benkman, 2006). Los tres ambientes hacían referencia a:
+
+* Ambiente I: Isla con ardillas
+* Ambiente II: Isla sin ardillas
+* Ambiente III: Continente con ardillas. 
+
+```{r}
+library(readr)
+library(ggplot2)
+
+ard <- read.csv("pines-squirrels.tsv",sep="")
+ard
+
+graf_ard <- ggplot(data=ard,aes(x=coneMass,fill=environment))+
+            geom_histogram()+
+            facet_wrap(~environment)+
+            labs(x="Tamaño Cono", y="Frecuencia",fill="Ambiente", title="Histograma de Distribución de los datos")+
+  theme(plot.title = element_text(hjust=0.5))
+
+graf_ard
+
+boxplot_ard<- ggplot(ard, aes(x = environment, y = coneMass, fill = environment)) + 
+  geom_boxplot(color='black') + 
+  geom_jitter(width = 0.05, height = 0.05) + 
+  ylab("Tamaño Cono") + 
+  xlab("Ambiente") + 
+  theme_bw()+
+  labs(title="BoxPlot Ambiente vs Tamaño Cono",fill="Ambiente")+ theme(plot.title = element_text(hjust=0.5))
+
+
+boxplot_ard
+
+
+densidad_ard <- ggplot(ard, aes(coneMass, fill=environment)) + 
+  facet_wrap(vars(environment)) +
+  geom_density() + 
+  labs(x = 'Tamaño Cono', y = 'Frecuencia',fill="Ambiente", title = "Gráfica de Densidad") +
+  theme_bw()+ theme(plot.title = element_text(hjust=0.5))
+densidad_ard
+
+
+
+```
+Se plantea que:
+$H_0:$ El tamaño de cono en los 3 ambientes presentan igual promedio.
+$H_a:$ Al menos uno o más de las medias del tamaño de cono es diferente a las medias de tamaño de cono de los otros ambientes
+
+El nivel de significancia escogido es de 0.01, ya que este valor es más estricto en rechazar la hipótesis nula, esto con el propósito de tener la mayor seguridad posible de que si se rechaza la hipótesis nula es porque existe una probababilidad muy baja de cometer un error al hacerlo. Por ende, habría mayor certeza de la hipótesis alternativa es verdadera.
+
+Primero se genera el test ANOVA y sus respectivos chequeos para conocer si cumple las asunciones del test.
+
+```{r}
+library(tidyverse)
+library(performance)
+
+
+
+
+
+anova_ard <- aov(data=ard,coneMass ~ environment)
+summary(anova_ard)
+
+check_autocorrelation(anova_ard )
+check_normality(anova_ard )
+check_heteroskedasticity(anova_ard)
+
+
+
+plot(check_homogeneity(anova_ard))
+plot(check_normality(anova_ard),type="density")
+plot(check_heteroskedasticity(anova_ard))
+
+
+
+
+
+```
+De acuerdo con el nivel de significancia elegido los chequeos cumplen con los supuestos. Por tal motivo se elige el estadístico de prueba F.
+
+
+
+i-V. Realice los pasos mencionados anteriormente.
+a. ¿Existen diferencias en el tamaño de cono entre los tres ambientes?
+
+Según el valor-P obtenido en ANOVA se rechaza la hipótesis nula, es decir que, las medias del tamaño de los conos es diferente. 
+
+
+c. ¿Cuál es el ambiente con mayor tamaño de cono? Realice una prueba de comparaciones múltiples y conclusión biológica.
+
+
+
+```{r}
+
+TukeyHSD(anova_ard)
+
+
+
+
+```
+
+Según la prueba de comparación múltiple de medias, el valor-P para todas las parejas creadas es de cero. Esto indica que para todas la pruebas de comparación generadas por la prueba Tukey se rechaza la hipótesis nula de que las medias son iguales, es decir que todas los promedios del tamaño de cono tienen valores diferentes para cada ambiente. No obstante, en el gráfico de BoxPlot se observa que el ambiente con mayor media en tamaño de cono es el ambiente I.
+
+
+
+## 2. Supervivencia al Veneno [2.5 puntos]
+
+Los datos `survival.tsv` corresponden a los resultados después del siguiente experimento: Se midió el tiempo de supervivencia de una serie de animales a los cuales se les asignó aleatoriamente un tipo de veneno (I, II y III) y un tipo de tratamiento (A, B, C, D).
+
+a. ¿Existen diferencias entre los tratamientos?
+
+En las gráficas presentadas para representar los datos de tratamientos según tres tipos de veneno, se logra observar que, si existen diferencias entre los diferentes tratamientos y entre el mismo tipo de tratamiento para los distintos venenos.
+
+b. ¿Qué tratamiento afectó en mayor medida la supervivencia?
+
+Se observa que para los tres tipos de venenos, el tratamiento que más influyó en el tiempo de vida es el Tratamiento A. Este tratamiento registra con mayor frecuencia los menores tiempos de vida registrados.
+
+
+c. ¿Hay diferencias entre los venenos? ¿Qué veneno afectó en menor medida la supervivencia?
+
+De acuerdo con el histograma de distribución de los datos, el veneno III tiene todos los tratamientos concentrados en un lapso de tiempo de vida de 0.17 a 0.375 aproximadamente. Mientras que, los venenos I y II tienen el valor de tiempo de vida más variable.
+
+
+```{r}
+
+
+surv <- read.csv("survival.tsv",sep="")
+surv
+
+graf_surv <- ggplot(data=surv,aes(x=Supervivencia,fill=Tratamiento))+
+            geom_histogram()+
+            facet_wrap(~Veneno)+
+            labs(x="Tiempo de Supervivencia", y="Frecuencia",fill="Tratamiento", title="Histograma de Distribución de los Datos Supervivencia")+
+  theme(plot.title = element_text(hjust=0.5))
+
+graf_surv
+
+boxplot_surv<- ggplot(surv, aes(x = Tratamiento, y = Supervivencia, fill = Veneno)) + 
+  geom_boxplot(color='black') + 
+  geom_jitter(width = 0.05, height = 0.05) + 
+  ylab("Tiempo de Supervivencia") + 
+  xlab("Tratamiento") + 
+  theme_bw()+
+  labs(title="BoxPlot Supervivencia según Veneno y Tratamiento",fill="Veneno")+ theme(plot.title = element_text(hjust=0.5))
+
+
+boxplot_surv
+
+
+densidad_surv <- ggplot(surv, aes(Supervivencia, fill=Tratamiento)) + 
+  facet_wrap(vars(Veneno)) +
+  geom_density() + 
+  labs(x = 'Tiempo de Supervivencia', y = 'Frecuencia',fill="Tratamiento", title = "Gráfica de Densidad Supervivencia") +
+  theme_bw()+
+  theme(plot.title = element_text(hjust=0.5))
+densidad_surv
+
+
+```
+Se plantea una hipótesis nula para cada factor y la interacción entre estos.
+
+Veneno:
+
+$H_0:$ El promedio de tiempo de supervivencia de cada veneno  es el mismo.
+$H_a:$ Al menos uno o más de las medias del tiempo de supervivencia de cada veneno es diferente.
+
+Tratamiento:
+
+$H_0:$ El promedio de tiempo de supervivencia de cada tratamiento  es el mismo.
+$H_a:$ Al menos uno o más de las medias del tiempo de supervivencia de cada tratamiento es diferente.
+
+Interacción entre los Venenos y los Tratamientos:
+
+$H_0:$ El promedio de tiempo de supervivencia de cada veneno entre los diferentes tratamientos es el mismo.
+$H_a:$ Al menos uno o más de las medias del tiempo de supervivencia de cada veneno entre los diferentes tratamientos es diferente.
+
+El nivel de significancia escogido es de 0.01, ya que este valor es más estricto en rechazar la hipótesis nula, esto con el propósito de tener la mayor seguridad posible de que si se rechaza la hipótesis nula es porque existe una probababilidad muy baja de cometer un error al hacerlo. Por ende, habría mayor certeza de la hipótesis alternativa es verdadera.
+
+Primero se genera el test ANOVA múltiple y sus respectivos chequeos para conocer si cumple las asunciones del test.
+
+```{r}
+
+
+
+
+anova_surv<- aov(data=surv,Supervivencia ~ Tratamiento*Veneno)
+summary(anova_surv)
+
+check_autocorrelation(anova_surv)
+check_normality(anova_surv)
+check_heteroskedasticity(anova_surv)
+
+
+
+plot(check_homogeneity(anova_surv))
+plot(check_normality(anova_surv),type="density")
+plot(check_heteroskedasticity(anova_surv))
+
+
+```
+
+De acuerdo con el nivel de significancia elegido no hay homocesdasticidad ni normalidad en los residuos. Por tal motivo se realiza la prueba Sheirer Ray Hare, donde el estadístico de prueba es chi-cuadrado.
+```{r}
+
+
+library(rcompanion)
+library(DescTools)
+library(multcomp)
+
+scheirerRayHare(Supervivencia ~ Veneno * Tratamiento, data = surv)
+
+
+```
+Según el test Scheirer-Ray-Hare el efecto del veneno y los tratamientos tiene un afecto sobre la supervivencia de forma separada, ya que se rechazan sus respectivas hipótesis nulas. Por otro lado, el test sugiere que, la interacción entre los diferentes tipos de tratamiento y los distintos venenos no influye en la supervivencia de los sujetos, ya que el valor-p reportado para este caso acepta la hipótesis nula de que el promedio de tiempo de supervivencia de cada veneno entre los diferentes tratamientos es el mismo.
+
+
+
+
+d. ¿Existe interacción? Incluya el Valor-P y el gráfico.
+
+El test Scheirer-Ray-Hare indica que la interacción entre los dos factores no es significativa, es decir que los efectos de un factor no dependenden del otro.
+
+```{r}
+
+
+gra<- ggplot(surv, aes(x = Tratamiento, y = Supervivencia, color = as.factor(Veneno), group = Veneno)) +
+  stat_summary(fun = mean, geom = "line", size = 1) 
+  stat_summary(fun = mean, geom = "point", size = 3) 
+  labs(title = "Interacción entre Veneno y Tratamiento",
+       x = "Tratamiento", y = "Supervivencia",
+       color = "Veneno") +
+  theme_minimal()
+gra
+
+```
+
+e. Conclusión biológica.

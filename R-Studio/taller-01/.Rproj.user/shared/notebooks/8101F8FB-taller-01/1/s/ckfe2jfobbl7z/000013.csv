@@ -1,0 +1,7 @@
+"0",""
+"0","solucion_salina <- rep(1,4)"
+"0","bajo <- c(1,2,3,1)"
+"0","alto <- c(5,4,4,2)"
+"0",""
+"0","datos <- data.frame(solucion_salina,bajo,alto)"
+"0","print(datos)"

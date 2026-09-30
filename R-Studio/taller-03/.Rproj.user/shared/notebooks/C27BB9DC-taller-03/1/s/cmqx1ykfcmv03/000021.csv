@@ -1,0 +1,6 @@
+"0","ggplot(graf, aes(x=hgt, fill=genero))+"
+"0","  geom_density(color=""grey"")+"
+"0","  labs(title=""Gráfico de densidad"", x= ""Altura"", y = ""Densidad"",fill=""Género"",tag=""Fig. 1"")+"
+"0","  facet_wrap(~genero)+"
+"0","  theme(plot.title=element_text(hjust=0.5),"
+"0","        plot.legend=element_text(hjust=0.5))"

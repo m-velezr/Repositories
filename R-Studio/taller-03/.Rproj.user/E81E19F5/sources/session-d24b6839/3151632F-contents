@@ -1,0 +1,244 @@
+---
+title: "Taller 03 - Estadística Descriptiva y Distribuciones"
+author: 
+ - Integrante 1
+format: html
+lang: es
+fig-align: center
+df-print: paged
+---
+
+#### 1. Explorando datos de tortugas marinas (1.66 puntos)
+
+Cargue el archivo `tortugas.txt`: Estos datos corresponden a un estudio realizado para determinar cómo la temperatura del nido afecta la proporción de sexos obtenida en una nidada para tres especies de tortugas marinas: *Chelonia mydas*, *Caretta caretta* y *Dermochelys coriacea*.
+
+Para cada uno de los nidos se tomaron medidas de la temperatura promedio durante el día (8:00 am a 3:30 pm) y la cantidad de machos y hembras que nacieron. Luego, se calculó la proporción entre los sexos como Número de hembras / Número de machos.
+
+**a.** Calcule la media, la varianza y la desviación estándar de la temperatura de los nidos para cada una de las especies e indique el rango intercuartil. Debe presentar los datos en una tabla donde además indique el número de nidos analizados para cada especie.
+
+```{r}
+library(dplyr)
+library(readr)
+
+datos <- read_table("tortugas.txt") 
+
+tabla <- datos |> 
+  group_by(Especie) |>
+  summarise("Media" = mean( Tem.prom_nidos,na.rm = TRUE ), "Varianza" = var( Tem.prom_nidos,na.rm=TRUE ), "Rango Intercuartil"= IQR( Tem.prom_nidos,na.rm=TRUE ),"Total Nidos" = n())
+
+
+tabla
+
+
+
+```
+
+**b.** ¿Cuál es la especie que presenta una mayor variación en el número de hembras producidas por nidada? Mencione cuál de las medidas de variación utilizó para responder esta pregunta y ¿por qué?
+
+```{r}
+
+
+
+CV<- function(x){
+  cv = sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)*100
+  return(cv) }
+
+
+tab_hem <- datos |> group_by(Especie) |> 
+  summarise("Coeficiente de Variación de las Hembras"= CV(numero.hembras))
+            
+tab_hem
+
+
+
+```
+La medida de variación utilizada es el Coeficiente de Variación, ya que este expresa el porcentaje de variación que tienen las hembras de cada especie.Por ello, se puede determinar que la especie que mayor variación presenta en cantidad de hembras es Caretta_caretta.
+
+
+**c.** ¿Cuál de las variables, temperatura o proporción de sexos, presenta mayor variación? Mencione la medida de variación utilizada para responder esta pregunta y explique por qué se eligió esa medida.
+
+```{r}
+
+CV_Temp<-CV(datos$Tem.prom_nidos)
+CV_Sex <- CV(datos$proporcion.sexos)
+
+cat("Coeficiente de Variación Temp:", CV_Temp,"\n")
+cat("Coeficiente de Variación Proporción de Sexos:",CV_Sex)
+
+
+
+```
+La medida de variación utilizada es el Coeficiente de Variación, ya que este expresa el porcentaje de variación que tienen los datos de Temperatura y Proporción de Sexo.Por ello, se puede determinar que la Proporción de Sexos presenta mayor variabilidad.
+
+**d.** Halle la varianza de la temperatura de los nidos de *Caretta caretta*.
+
+```{r}
+var_nidos <- datos |> 
+  filter(Especie=="Caretta_caretta") |> 
+  summarise("Varianza"=var(Tem.prom_nidos,na.rm=TRUE))
+var_nidos
+```
+
+
+#### 2. Explorando datos en humanos y sus distribuciones (1.66 puntos)
+
+Cargue los datos `bones_dimension.csv`, que se encuentran en la carpeta del taller de esta semana. Revise el contenido del archivo.
+```{r}
+library(readxl)
+
+archivos_bones = read.csv("bones_dimensions.csv")
+archivos_bones
+
+
+
+
+
+```
+
+
+:::{.callout-important}
+En el siguiente [link](https://www.openintro.org/book/statdata/?data=bdims) encontrara el significado de las variables del set de datos. 
+:::
+
+**a.** Simule una distribución normal aleatoria con una media de 175 y una desviación estándar de 18. Grafíquela.
+
+```{r}
+set.seed(194)
+library(ggplot2)
+sim_norm <- rnorm(1000,mean=175,sd=18)
+qplot(sim_norm,
+      color = I("black"),
+      fill = I("grey"),
+      xlab = "Valores",
+      ylab = "Frecuencia")+
+  labs(title="Simulación Distribución Normal")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme_minimal()
+  
+  
+
+
+
+
+
+```
+
+**b.** Grafique un histograma de la altura de los hombres y otro de la altura de las mujeres. Además, calcule la media y la desviación estándar de cada distribución. ¿Qué se puede decir acerca de la altura de los hombres y las mujeres a partir de estos histogramas?
+
+```{r}
+
+graf <- archivos_bones |> 
+  mutate(genero = case_when(sex ==1 ~"Hombre",
+sex == 0 ~ "Mujer")) |> 
+  select(genero,hgt)
+
+
+val <- graf |> 
+  group_by(genero) |> 
+  summarise("var"=round(var(hgt,na.rm=TRUE),2),"sd"=round(sd(hgt,na.rm=TRUE),2), "tot" = round(n(),2),"media"= round(mean(hgt),2))
+            
+val
+
+ggplot(graf,aes(x=hgt,fill=genero))+
+  geom_histogram(color="grey")+
+  facet_wrap(~genero)+
+  labs(title="Distribución de Altura por Género",x="Altura", y="Frecuencia",fill="Género")+
+  scale_fill_manual(values=c("Hombre"="blue","Mujer"= "pink"))+
+  theme(plot.title=element_text(size=16, hjust=0.5),
+        legend.title=element_text(hjust=0.5))
+
+
+
+
+
+```
+Se observa que la altura media de los hombres es mayor que la de las mujeres. Por esta razón, el histograma construido para la muestra de hombres se encuentra desplazado hacia la derecha, mientras que el de las mujeres tiende a ubicarse en valores de altura más bajos. Sin embargo, la distribución de alturas en los hombres presenta una desviación estándar mayor, lo que indica una mayor variabilidad en los datos de este grupo.
+
+
+**c.** Realice un gráfico de densidad para la altura en hombres, mujeres y la distribución aleatoria realizada en el punto anterior. Observe y analice las gráficas de densidad obtenidas. ¿Considera que todas presentan una densidad característica de una distribución normal? Explique el resultado observado.
+
+```{r}
+ggplot(graf, aes(x=hgt, fill=genero))+
+  geom_density(color="grey")+
+  labs(title="Gráfico de densidad", x= "Altura", y = "Densidad",fill="Género",tag="Fig. 1")+
+  facet_wrap(~genero)+
+  theme(plot.title=element_text(hjust=0.5),
+        plot.legend=element_text(hjust=0.5))
+
+aleat_hom <- rnorm(val$tot[1],val$media[1],val$sd[1])
+aleat_muj <- rnorm(val$tot[2],val$media[2],val$sd[2])
+
+data_aleat<- data.frame(
+  Genero = rep(c("Hombre","Mujer"),times = c(length(aleat_hom),length(aleat_muj))),
+                        Altura=c(aleat_hom,aleat_muj))
+
+ggplot(data_aleat, aes(x=Altura, fill=Genero))+
+  geom_density(color="grey")+
+  labs(title="Distribución aleatoria", x = "Altura", y="Densidad", fill = "Género", tag="Fig. 2")+
+  theme(plot.title=element_text(hjust=0.5),
+        plot.legend=element_text(hjust=0.5))+
+  facet_wrap(~Genero)
+    
+
+
+
+
+```
+
+
+En el gráfico de densidad, se observa que la distribución de altura para ambos géneros presenta una forma simétrica, similar a la de la distribución aleatoria generada. Esta última fue modelada utilizando valores aleatorios de una distribución normal, basados en la media y desviación estándar de las muestras de hombres y mujeres.
+
+Dado que la distribución de densidad muestra un comportamiento semejante a la distribución normal simulada, se puede concluir que la muestra sigue una tendencia normal.
+
+#### 3. Distribuciones y probabilidades (1.66 puntos)
+
+Responda las siguiente preguntas relacionadas con la probabilidad en una distribución normal 
+
+**a.** ¿Cuál es la probabilidad de que una mujer escogida de la muestra tenga un peso superior a 68kg?
+
+```{r}
+
+
+dat <- subset(archivos_bones,sex==0,select=wgt) |> 
+      summarise("media"=mean(wgt), "sd" = sd(wgt))
+  
+
+  
+
+prob <- (1- pnorm(68,mean=dat$media,sd=dat$sd))
+
+prob
+
+
+```
+
+**b.** ¿Cuál es la probabilidad de que un hombre pese entre 75 kg a 80 kg?
+
+```{r}
+
+dat_hom <- subset(archivos_bones,sex==1,select=wgt) |> 
+            summarise("mean"= mean(wgt), "sd"=sd(wgt))
+
+prob_hom <- pnorm(80,mean=dat_hom$mean,sd=dat_hom$sd)-pnorm(75,mean=dat_hom$mean,sd=dat_hom$sd)
+prob_hom
+
+
+
+
+
+
+```
+
+**c.** ¿Cuál es la probabilidad de que tanto hombres como mujeres mayores de 22 años tengan un peso superior a 80 kg?
+
+```{r}
+
+
+dat_gen <- subset(archivos_bones,age>22,select=wgt) |> 
+          summarise("mean" =mean(wgt),"sd" = sd(wgt))
+
+prob_gen <- (1-pnorm(80,mean=dat_gen$mean,sd=dat_gen$sd))
+
+prob_gen
+
+```

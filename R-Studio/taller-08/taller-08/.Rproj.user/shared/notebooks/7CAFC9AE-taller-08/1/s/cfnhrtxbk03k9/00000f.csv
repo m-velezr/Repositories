@@ -1,0 +1,8 @@
+"0","library(ggpmisc)"
+"0",""
+"0","ggplot(data=coc, aes(x=ClutchS,y=egg_size))+"
+"0","  geom_point()+"
+"0","  geom_smooth(method=lm)+"
+"0","  theme_linedraw() +"
+"0","  labs(x=""Tamaño nidada (mm)"",y=""Tamaño huevo (mm)"",title=""Regresión Lineal tamaño nidada vs tamaño huevo"") +"
+"0","  stat_poly_eq(use_label(c(""eq"",""r2"",""F"",""p.value"", ""n""))) "

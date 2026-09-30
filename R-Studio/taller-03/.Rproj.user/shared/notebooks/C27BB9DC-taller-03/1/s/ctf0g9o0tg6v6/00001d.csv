@@ -1,0 +1,18 @@
+"2","Aviso en gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Mariana Velez/OneDrive - Universidad de los andes/Documentos/Universidad/8 semestre/Inferencia E Informática/Laboratorio/taller-03/.Rproj.user/shared/notebooks/C27BB9DC-taller-03/1/E81E19F537ec9d8/ctf0g9o0tg6v6_t/4fedba1fc2554447b96178e750de60b9.snapshot', probable reason 'No such file or directory'
+"
+"2","Error en gzfile(file, ""wb""): no se puede abrir la conexión
+"
+"0","set.seed(194)"
+"0","library(ggplot2)"
+"0","sim_norm <- rnorm(1000,mean=175,sd=18)"
+"0","qplot(sim_norm,"
+"0","      color = I(""black""),"
+"0","      fill = I(""grey""),"
+"0","      xlab = ""Valores"","
+"0","      ylab = ""Frecuencia"")+"
+"0","  labs(title=""Simulación Distribución Normal"")+"
+"0","  theme(plot.title = element_text(hjust = 0.5))+"
+"0","  theme_minimal()"

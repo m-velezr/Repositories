@@ -1,0 +1,18 @@
+"0",""
+"0","boxplot_surv<- ggplot(surv, aes(x = Tratamiento, y = Supervivencia, fill = Veneno)) + "
+"0","  geom_boxplot(color='black') + "
+"0","  geom_jitter(width = 0.05, height = 0.05) + "
+"0","  ylab(""Tiempo de Supervivencia"") + "
+"0","  xlab(""Tratamiento"") + "
+"0","  theme_bw()+"
+"0","  labs(title=""BoxPlot Supervivencia según Veneno y Tratamiento"",fill=""Veneno"")+ theme(plot.title = element_text(hjust=0.5))"
+"0",""
+"0",""
+"0","boxplot_surv"
+"2","Aviso en gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Mariana Velez/OneDrive - Universidad de los andes/Documentos/Universidad/8 semestre/Inferencia E Informática/Laboratorio/taller-07/.Rproj.user/shared/notebooks/6039370F-taller-07/1/E81E19F578af73ad/ceit5ehhpbzn4_t/322e3e1a07d44c17b10b6b1d84cba9a0.snapshot', probable reason 'No such file or directory'
+"
+"2","Error en gzfile(file, ""wb""): no se puede abrir la conexión
+"

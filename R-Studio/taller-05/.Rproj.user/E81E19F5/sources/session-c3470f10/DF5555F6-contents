@@ -1,0 +1,178 @@
+---
+title: "Taller 5 - Normalidad y Transformaciones"
+subtitle: "Modulo de Inferencia"
+author: "Integrante"
+date: today
+format: html
+lang: es
+fig-align: center
+df-print: paged
+toc: true
+---
+
+Cargue los datos `bones-dimension.csv`, que se encuentran en la carpeta del taller de esta semana. Revise el contenido del archivo.
+
+:::{.callout-important}
+En el siguiente [link](https://www.openintro.org/book/statdata/?data=bdims) encontrara el significado de las variables del set de datos. 
+:::
+
+### 1. Evaluando la normalidad de los datos [1.66 puntos].
+
+**a.** Evalúe la normalidad de los datos de peso y edad, (sin discriminar por el sexo). Recuerde que **debe** utilizar los dos métodos gráficos y el cuantitativo. Sustente sus resultados.
+
+```{r}
+library(readr)
+library(patchwork)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+
+bones <- read.csv("bones_dimensions.csv")
+bones
+
+par(mfrow = c(1,2))
+Q_edad <- ggplot(bones, aes(sample=age))+
+          geom_qq()+
+          geom_qq_line()+
+          labs (title = "Evaluación Normalidad Edad")+
+          theme(plot.title = element_text(hjust=0.5))+
+          theme_minimal()
+
+
+Dens_edad <-ggplot(bones, aes(x=age))+
+  geom_density()+
+  labs(title = "Distribución de densidad Edad",x="Edad",y="Probabilidad")+
+  theme(plot.title = element_text(hjust=0.5))+
+  theme_minimal()
+  
+
+Q_edad + Dens_edad
+
+norm_edad <- shapiro.test(bones$age)
+
+
+
+
+norm_edad
+
+
+
+
+Q_peso <- ggplot(bones, aes(sample=wgt))+
+          geom_qq()+
+          geom_qq_line()+
+          labs (title = "Evaluación Normalidad Peso")+
+           theme(plot.title = element_text(hjust=0.5))+
+            theme_minimal()
+
+
+Dens_peso <- ggplot(bones, aes(x=wgt))+
+  geom_density()+
+  labs(title = "Distribución de densidad Peso",x="Peso",y="Probabilidad")+
+  theme(plot.title = element_text(hjust=0.5))+
+  theme_minimal()
+  
+  
+
+
+norm_peso <- shapiro.test(bones$wgt)
+
+Q_peso + Dens_peso
+
+norm_peso
+
+```
+Se observa que los datos de Edad están sesgados hacia la derecha y, de acuerdo con el test de shapiro se rechaza la hipótesis de que está distribuida de forma normal. Por otro lado, los datos de Peso muestran una distribución de densidad un poco irregular, a pesar de que los datos se relacionan bien con la regresión, sin embargo el test de shapiro rechaza la hipótesis de que se distribuya de forma normal.
+
+
+### 2. Transformaciones [1.66 puntos]
+
+**a.** La profundidad del pecho de las mujeres no sigue una distribución normal. Explique por qué.
+
+```{r}
+
+library(dplyr)
+
+muj <- bones |> 
+      filter(sex ==0)
+
+muj
+
+dist_norm <- rnorm(260, mean = mean(muj$che.de), sd = sd(muj$che.de))
+
+
+Dens_muj <-ggplot( text = "original")+
+  geom_density(aes(muj$che.de),fill="lightblue",alpha = 0.5) +
+  geom_density(aes(dist_norm),fill="salmon",alpha = 0.5) +
+  annotate("text", label = "Original", x = 16, y = 0.25, color = "lightblue") +
+  annotate("text", label = "Simulado", x = 20, y = 0.2, color = "salmon") +
+  labs( title ="Distribución de la Profundidad del Pecho de las Mujeres", x= "Profundidad Pecho Mujeres", y = "Probabilidad")+
+  theme_minimal()+
+  theme(plot.title = (element_text(hjust = 0.5)))
+  
+Dens_muj
+
+norm_muj <- shapiro.test(muj$che.de)
+norm_muj
+
+
+
+
+
+```
+En las gráficas se observa que los datos están sesgados a la derecha y, en relación a la distribución normal presentada en la gráfica rosa se muestra que simétricamente son distintas. Asimismo, el valor p arrojado por el test Shapiro rechaza la hipótesis de que los datos se comportan de forma normal.
+
+
+
+**b.** Realice la transformación adecuada sobre los datos de la profundidad del pecho de las mujeres de tal forma que sigan una distribución normal (muestre que en efecto luego de la transformación los datos siguen una distribución normal).
+
+```{r}
+library(stringr)
+library(ggplot2)
+trans_recip<- 1/(muj$che.de)
+
+trans_log <- log(muj$che.de)
+
+
+
+
+recip <- ggplot()+
+  geom_density(aes(x=trans_recip), fill="lightblue", alpha = 0.5) +
+  labs( title = str_wrap("Distribución de la Transformación Recíproca de la Profundidad del Pecho de las Mujeres",width = 60), x= "Profundidad Pecho Mujeres", y = "Probabilidad")+
+    theme(plot.title = element_text(hjust=0.5,size =15))
+
+
+log <- ggplot()+
+  geom_density(aes(x=trans_log),fill="beige",alpha = 0.5)+
+  labs( title =str_wrap("Distribución de la Transformación Logarítmica de la Profundidad del Pecho de las Mujeres",width=60), x= "Profundidad Pecho Mujeres", y = "Probabilidad")+
+  theme(plot.title = element_text(hjust=0.5,size=15))
+  
+
+
+
+
+recip 
+log
+
+
+norm_recip <- shapiro.test(trans_recip)
+norm_log <- shapiro.test(trans_log)
+
+norm_recip
+norm_log
+
+```
+De acuerdo con le test de Shapiro la transformación recíproca no rechaza la hipótesis de que los datos se comportan normal a diferencia de la transformación logarítmica. Esto también es observable en las gráficas dónde se ve que la transformación logarítmica esta sesgada a la derecha.
+
+
+
+## 3. Discusiones [1.66 puntos]
+
+**a.** ¿Qué puede concluir de los datos de la profundidad del pecho de las mujeres? ¿Qué implicaciones tiene esto para el análisis de los datos?
+
+
+Se concluye que, los datos de la profundidad del pecho de las mujeres no sigue una diustribución normal con un sesgo hacia la derecha, lo que sugiere que los valores están muy concentrados en valores pequeños. El análisis de datos debe contemplar la transformación realizada sobre los datos para evitar conclusiones erróneas al aplicar una prueba parámetrica sobre la transformación recíproca.
+
+**b.** ¿Qué implicaciones tiene el hecho de que los datos no sigan una distribución normal para el análisis de los datos?
+
+Cuando los datos no siguen una distribución normal se limita el uso de pruebas paramétricas como la t-Student. Esto aumenta el riesgo de obtener conclusiones erróneas ya que lo datos no se ajustan correctamente y requieren de transformaciones no parámetricas.

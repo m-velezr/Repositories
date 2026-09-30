@@ -1,0 +1,7 @@
+"2","Aviso en gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Mariana Velez/OneDrive - Universidad de los andes/Documentos/Universidad/8 semestre/Inferencia E Informática/Laboratorio/taller-07/.Rproj.user/shared/notebooks/6039370F-taller-07/1/E81E19F578af73ad/c6ti29iggrvmb_t/dbe802068c194cbc981cd28e75ad12bd.snapshot', probable reason 'No such file or directory'
+"
+"2","Error en gzfile(file, ""wb""): no se puede abrir la conexión
+"

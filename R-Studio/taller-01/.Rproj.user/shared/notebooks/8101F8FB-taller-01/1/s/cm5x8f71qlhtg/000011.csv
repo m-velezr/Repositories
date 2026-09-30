@@ -1,0 +1,3 @@
+"0","zon_dat <- subset(data,(Zona == 1 | Zona ==2))"
+"0",""
+"0","zon_dat"

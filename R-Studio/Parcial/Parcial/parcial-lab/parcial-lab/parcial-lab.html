@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="">
+
+<title>Parcial de Laboratorio IeI</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="parcial-lab_files/libs/clipboard/clipboard.min.js"></script>
+<script src="parcial-lab_files/libs/quarto-html/quarto.js"></script>
+<script src="parcial-lab_files/libs/quarto-html/popper.min.js"></script>
+<script src="parcial-lab_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="parcial-lab_files/libs/quarto-html/anchor.min.js"></script>
+<link href="parcial-lab_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="parcial-lab_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="parcial-lab_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="parcial-lab_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="parcial-lab_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="parcial-lab_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+
+<script src="parcial-lab_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#pokemones-legendarios-2.5-puntos." id="toc-pokemones-legendarios-2.5-puntos." class="nav-link active" data-scroll-target="#pokemones-legendarios-2.5-puntos.">1. Pokemones Legendarios (2.5 puntos).</a></li>
+  <li><a href="#escamas-en-serpientes-2.5-puntos." id="toc-escamas-en-serpientes-2.5-puntos." class="nav-link" data-scroll-target="#escamas-en-serpientes-2.5-puntos.">2. Escamas en Serpientes (2.5 puntos).</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Parcial de Laboratorio IeI</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">26 de febrero de 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="pokemones-legendarios-2.5-puntos." class="level2">
+<h2 class="anchored" data-anchor-id="pokemones-legendarios-2.5-puntos.">1. Pokemones Legendarios (2.5 puntos).</h2>
+<p>En este punto, se presenta un conjunto de datos de Pokémon (<code>datos_pokemon.xlsx</code>) creado por Alberto Barradas, un analista de datos de comportamiento de TUGraz, Austria. Incluye las principales características de 721 Pokémon. A partir de este dataset, realice los siguientes ejercicios:</p>
+<p><strong>a. Descripción de los datos</strong></p>
+<p>A partir de este set de datos, describe el proceso para calcular y visualizar las medidas de tendencia central y dispersión. Explore principalmente el poder total, ataque, defensa y velocidad de los pokemones. Explique que encuentra e inteprete (use la librería <code>ggplot2</code> para graficar los datos).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Adjuntando el paquete: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.4     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.1
+✔ readr     2.1.5     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"datos_pokemon.xlsx"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>poder <span class="ot">&lt;-</span> pokemon <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">"Media"</span> <span class="ot">=</span> <span class="fu">mean</span>(pokemon<span class="sc">$</span>poder_total,<span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="st">"Desviación Estandar"</span> <span class="ot">=</span> <span class="fu">sd</span>(pokemon<span class="sc">$</span>poder_total,<span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="st">"Coeficiente de Variación"</span> <span class="ot">=</span><span class="fu">sd</span>(pokemon<span class="sc">$</span>poder_total,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">/</span> <span class="fu">mean</span>(pokemon<span class="sc">$</span>poder_total,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">*</span><span class="dv">100</span>,<span class="st">"Rango Intercuartil"</span> <span class="ot">=</span> <span class="fu">IQR</span>(pokemon<span class="sc">$</span>poder_total,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ataque  <span class="ot">&lt;-</span> pokemon <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">"Media"</span> <span class="ot">=</span> <span class="fu">mean</span>(pokemon<span class="sc">$</span>ataque,<span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="st">"Desviación Estandar"</span> <span class="ot">=</span> <span class="fu">sd</span>(pokemon<span class="sc">$</span>ataque,<span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="st">"Coeficiente de Variación"</span> <span class="ot">=</span><span class="fu">sd</span>(pokemon<span class="sc">$</span>ataque,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">/</span> <span class="fu">mean</span>(pokemon<span class="sc">$</span>ataque,<span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span>,<span class="st">"Rango Intercuartil"</span> <span class="ot">=</span> <span class="fu">IQR</span>(pokemon<span class="sc">$</span>ataque,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>defensa  <span class="ot">&lt;-</span> pokemon <span class="sc">|&gt;</span> </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">"Media"</span> <span class="ot">=</span> <span class="fu">mean</span>(pokemon<span class="sc">$</span>defensa,<span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="st">"Desviación Estandar"</span> <span class="ot">=</span> <span class="fu">sd</span>(pokemon<span class="sc">$</span>defensa,<span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="st">"Coeficiente de Variación"</span> <span class="ot">=</span><span class="fu">sd</span>(pokemon<span class="sc">$</span>defensa,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">/</span> <span class="fu">mean</span>(pokemon<span class="sc">$</span>defensa,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">*</span><span class="dv">100</span>,<span class="st">"Rango Intercuartil"</span> <span class="ot">=</span> <span class="fu">IQR</span>(pokemon<span class="sc">$</span>defensa,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>velocidad  <span class="ot">&lt;-</span> pokemon <span class="sc">|&gt;</span> </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">"Media"</span> <span class="ot">=</span> <span class="fu">mean</span>(pokemon<span class="sc">$</span>velocidad,<span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="st">"Desviación Estandar"</span> <span class="ot">=</span> <span class="fu">sd</span>(pokemon<span class="sc">$</span>velocidad,<span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="st">"Coeficiente de Variación"</span> <span class="ot">=</span><span class="fu">sd</span>(pokemon<span class="sc">$</span>velocidad,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">/</span> <span class="fu">mean</span>(pokemon<span class="sc">$</span>velocidad,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">*</span><span class="dv">100</span>, <span class="st">"Rango Intercuartil"</span> <span class="ot">=</span> <span class="fu">IQR</span>(pokemon<span class="sc">$</span>velocidad,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>poder</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Media"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Desviación Estandar"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Coeficiente de Variación"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Rango Intercuartil"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"435.1025","2":"119.963","3":"27.57121","4":"185"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ataque</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Media"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Desviación Estandar"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Coeficiente de Variación"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Rango Intercuartil"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"79.00125","2":"32.45737","3":"41.08462","4":"45"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>defensa</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Media"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Desviación Estandar"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Coeficiente de Variación"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Rango Intercuartil"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"73.8425","2":"31.1835","3":"42.22975","4":"40"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>velocidad</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Media"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Desviación Estandar"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Coeficiente de Variación"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Rango Intercuartil"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"68.2775","2":"29.06047","3":"42.5623","4":"45"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>graf_Poder<span class="ot">&lt;-</span><span class="fu">ggplot</span>(pokemon, <span class="fu">aes</span>(<span class="at">x=</span>poder_total))<span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_histogram</span>()<span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Frecuencia del Poder Total"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>, <span class="at">x=</span> <span class="st">"Poder Total"</span>)<span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>,<span class="at">size=</span><span class="dv">10</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>graf_Ataque <span class="ot">&lt;-</span><span class="fu">ggplot</span>(pokemon, <span class="fu">aes</span>(<span class="at">x=</span>poder_total))<span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_histogram</span>()<span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Frecuencia del Ataque"</span>,<span class="at">y =</span> <span class="st">"Frecuencia"</span>, <span class="at">x=</span> <span class="st">"Ataque"</span>)<span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>,<span class="at">size=</span><span class="dv">10</span>))</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>graf_Defensa <span class="ot">&lt;-</span><span class="fu">ggplot</span>(pokemon, <span class="fu">aes</span>(<span class="at">x=</span>poder_total))<span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_histogram</span>()<span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Frecuencia de la Defensa"</span>,<span class="at">y =</span> <span class="st">"Frecuencia"</span>, <span class="at">x=</span> <span class="st">"Defensa"</span>)<span class="sc">+</span>     <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>,<span class="at">size=</span><span class="dv">10</span>))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>graf_Velocidad <span class="ot">&lt;-</span><span class="fu">ggplot</span>(pokemon, <span class="fu">aes</span>(<span class="at">x=</span>poder_total))<span class="sc">+</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_histogram</span>()<span class="sc">+</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Frecuencia de la Velocidad"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>, <span class="at">x=</span> <span class="st">"Velocidad"</span>)<span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>,<span class="at">size=</span><span class="dv">10</span>))</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>graf_Poder <span class="sc">+</span> graf_Ataque <span class="sc">+</span> graf_Defensa<span class="sc">+</span> graf_Velocidad</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="parcial-lab_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Se observa que, el rango intercuartil de la defensa es de 40, esto indica que el 50% de los datos están más concentrados alrededor de la mediana a diferencia de las otras características del pokemon. Sin embargo, se observa que el coeficiente de variación mas reducido lo obtiene el Poder Total, esto indica que en general los datos que menos varían en su totalidad pertenecen a esta categoría.</p>
+<p><strong>b. Creación de subconjunto de datos:</strong></p>
+<p>A partir del conjunto de datos de Pokémon, cree un subconjunto que contenga únicamente la información correspondiente a los Pokémon de los siguientes tipos: Grass, Electric, Fire, Water y Poison.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>conj <span class="ot">&lt;-</span> pokemon <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(tipo <span class="sc">==</span> <span class="st">"Grass"</span> <span class="sc">|</span> tipo <span class="sc">==</span><span class="st">"Electric"</span><span class="sc">|</span>tipo <span class="sc">==</span> <span class="st">"Fire"</span><span class="sc">|</span> tipo <span class="sc">==</span><span class="st">"Water"</span><span class="sc">|</span>tipo<span class="sc">==</span><span class="st">"Poison"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>conj</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["#"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["nombre"],"name":[2],"type":["chr"],"align":["left"]},{"label":["tipo"],"name":[3],"type":["chr"],"align":["left"]},{"label":["otro_tipo"],"name":[4],"type":["chr"],"align":["left"]},{"label":["poder_total"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["hit_points"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["ataque"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["defensa"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["ataque_especial"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["defensa_especial"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["velocidad"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["generacion"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["legendario"],"name":[13],"type":["lgl"],"align":["right"]}],"data":[{"1":"1","2":"Bulbasaur","3":"Grass","4":"Poison","5":"318","6":"45","7":"49","8":"49","9":"65","10":"65","11":"45","12":"1","13":"FALSE"},{"1":"2","2":"Ivysaur","3":"Grass","4":"Poison","5":"405","6":"60","7":"62","8":"63","9":"80","10":"80","11":"60","12":"1","13":"FALSE"},{"1":"3","2":"Venusaur","3":"Grass","4":"Poison","5":"525","6":"80","7":"82","8":"83","9":"100","10":"100","11":"80","12":"1","13":"FALSE"},{"1":"3","2":"VenusaurMega Venusaur","3":"Grass","4":"Poison","5":"625","6":"80","7":"100","8":"123","9":"122","10":"120","11":"80","12":"1","13":"FALSE"},{"1":"4","2":"Charmander","3":"Fire","4":"NA","5":"309","6":"39","7":"52","8":"43","9":"60","10":"50","11":"65","12":"1","13":"FALSE"},{"1":"5","2":"Charmeleon","3":"Fire","4":"NA","5":"405","6":"58","7":"64","8":"58","9":"80","10":"65","11":"80","12":"1","13":"FALSE"},{"1":"6","2":"Charizard","3":"Fire","4":"Flying","5":"534","6":"78","7":"84","8":"78","9":"109","10":"85","11":"100","12":"1","13":"FALSE"},{"1":"6","2":"CharizardMega Charizard X","3":"Fire","4":"Dragon","5":"634","6":"78","7":"130","8":"111","9":"130","10":"85","11":"100","12":"1","13":"FALSE"},{"1":"6","2":"CharizardMega Charizard Y","3":"Fire","4":"Flying","5":"634","6":"78","7":"104","8":"78","9":"159","10":"115","11":"100","12":"1","13":"FALSE"},{"1":"7","2":"Squirtle","3":"Water","4":"NA","5":"314","6":"44","7":"48","8":"65","9":"50","10":"64","11":"43","12":"1","13":"FALSE"},{"1":"8","2":"Wartortle","3":"Water","4":"NA","5":"405","6":"59","7":"63","8":"80","9":"65","10":"80","11":"58","12":"1","13":"FALSE"},{"1":"9","2":"Blastoise","3":"Water","4":"NA","5":"530","6":"79","7":"83","8":"100","9":"85","10":"105","11":"78","12":"1","13":"FALSE"},{"1":"9","2":"BlastoiseMega Blastoise","3":"Water","4":"NA","5":"630","6":"79","7":"103","8":"120","9":"135","10":"115","11":"78","12":"1","13":"FALSE"},{"1":"23","2":"Ekans","3":"Poison","4":"NA","5":"288","6":"35","7":"60","8":"44","9":"40","10":"54","11":"55","12":"1","13":"FALSE"},{"1":"24","2":"Arbok","3":"Poison","4":"NA","5":"438","6":"60","7":"85","8":"69","9":"65","10":"79","11":"80","12":"1","13":"FALSE"},{"1":"25","2":"Pikachu","3":"Electric","4":"NA","5":"320","6":"35","7":"55","8":"40","9":"50","10":"50","11":"90","12":"1","13":"FALSE"},{"1":"26","2":"Raichu","3":"Electric","4":"NA","5":"485","6":"60","7":"90","8":"55","9":"90","10":"80","11":"110","12":"1","13":"FALSE"},{"1":"29","2":"Nidoran♀","3":"Poison","4":"NA","5":"275","6":"55","7":"47","8":"52","9":"40","10":"40","11":"41","12":"1","13":"FALSE"},{"1":"30","2":"Nidorina","3":"Poison","4":"NA","5":"365","6":"70","7":"62","8":"67","9":"55","10":"55","11":"56","12":"1","13":"FALSE"},{"1":"31","2":"Nidoqueen","3":"Poison","4":"Ground","5":"505","6":"90","7":"92","8":"87","9":"75","10":"85","11":"76","12":"1","13":"FALSE"},{"1":"32","2":"Nidoran♂","3":"Poison","4":"NA","5":"273","6":"46","7":"57","8":"40","9":"40","10":"40","11":"50","12":"1","13":"FALSE"},{"1":"33","2":"Nidorino","3":"Poison","4":"NA","5":"365","6":"61","7":"72","8":"57","9":"55","10":"55","11":"65","12":"1","13":"FALSE"},{"1":"34","2":"Nidoking","3":"Poison","4":"Ground","5":"505","6":"81","7":"102","8":"77","9":"85","10":"75","11":"85","12":"1","13":"FALSE"},{"1":"37","2":"Vulpix","3":"Fire","4":"NA","5":"299","6":"38","7":"41","8":"40","9":"50","10":"65","11":"65","12":"1","13":"FALSE"},{"1":"38","2":"Ninetales","3":"Fire","4":"NA","5":"505","6":"73","7":"76","8":"75","9":"81","10":"100","11":"100","12":"1","13":"FALSE"},{"1":"41","2":"Zubat","3":"Poison","4":"Flying","5":"245","6":"40","7":"45","8":"35","9":"30","10":"40","11":"55","12":"1","13":"FALSE"},{"1":"42","2":"Golbat","3":"Poison","4":"Flying","5":"455","6":"75","7":"80","8":"70","9":"65","10":"75","11":"90","12":"1","13":"FALSE"},{"1":"43","2":"Oddish","3":"Grass","4":"Poison","5":"320","6":"45","7":"50","8":"55","9":"75","10":"65","11":"30","12":"1","13":"FALSE"},{"1":"44","2":"Gloom","3":"Grass","4":"Poison","5":"395","6":"60","7":"65","8":"70","9":"85","10":"75","11":"40","12":"1","13":"FALSE"},{"1":"45","2":"Vileplume","3":"Grass","4":"Poison","5":"490","6":"75","7":"80","8":"85","9":"110","10":"90","11":"50","12":"1","13":"FALSE"},{"1":"54","2":"Psyduck","3":"Water","4":"NA","5":"320","6":"50","7":"52","8":"48","9":"65","10":"50","11":"55","12":"1","13":"FALSE"},{"1":"55","2":"Golduck","3":"Water","4":"NA","5":"500","6":"80","7":"82","8":"78","9":"95","10":"80","11":"85","12":"1","13":"FALSE"},{"1":"58","2":"Growlithe","3":"Fire","4":"NA","5":"350","6":"55","7":"70","8":"45","9":"70","10":"50","11":"60","12":"1","13":"FALSE"},{"1":"59","2":"Arcanine","3":"Fire","4":"NA","5":"555","6":"90","7":"110","8":"80","9":"100","10":"80","11":"95","12":"1","13":"FALSE"},{"1":"60","2":"Poliwag","3":"Water","4":"NA","5":"300","6":"40","7":"50","8":"40","9":"40","10":"40","11":"90","12":"1","13":"FALSE"},{"1":"61","2":"Poliwhirl","3":"Water","4":"NA","5":"385","6":"65","7":"65","8":"65","9":"50","10":"50","11":"90","12":"1","13":"FALSE"},{"1":"62","2":"Poliwrath","3":"Water","4":"Fighting","5":"510","6":"90","7":"95","8":"95","9":"70","10":"90","11":"70","12":"1","13":"FALSE"},{"1":"69","2":"Bellsprout","3":"Grass","4":"Poison","5":"300","6":"50","7":"75","8":"35","9":"70","10":"30","11":"40","12":"1","13":"FALSE"},{"1":"70","2":"Weepinbell","3":"Grass","4":"Poison","5":"390","6":"65","7":"90","8":"50","9":"85","10":"45","11":"55","12":"1","13":"FALSE"},{"1":"71","2":"Victreebel","3":"Grass","4":"Poison","5":"490","6":"80","7":"105","8":"65","9":"100","10":"70","11":"70","12":"1","13":"FALSE"},{"1":"72","2":"Tentacool","3":"Water","4":"Poison","5":"335","6":"40","7":"40","8":"35","9":"50","10":"100","11":"70","12":"1","13":"FALSE"},{"1":"73","2":"Tentacruel","3":"Water","4":"Poison","5":"515","6":"80","7":"70","8":"65","9":"80","10":"120","11":"100","12":"1","13":"FALSE"},{"1":"77","2":"Ponyta","3":"Fire","4":"NA","5":"410","6":"50","7":"85","8":"55","9":"65","10":"65","11":"90","12":"1","13":"FALSE"},{"1":"78","2":"Rapidash","3":"Fire","4":"NA","5":"500","6":"65","7":"100","8":"70","9":"80","10":"80","11":"105","12":"1","13":"FALSE"},{"1":"79","2":"Slowpoke","3":"Water","4":"Psychic","5":"315","6":"90","7":"65","8":"65","9":"40","10":"40","11":"15","12":"1","13":"FALSE"},{"1":"80","2":"Slowbro","3":"Water","4":"Psychic","5":"490","6":"95","7":"75","8":"110","9":"100","10":"80","11":"30","12":"1","13":"FALSE"},{"1":"80","2":"SlowbroMega Slowbro","3":"Water","4":"Psychic","5":"590","6":"95","7":"75","8":"180","9":"130","10":"80","11":"30","12":"1","13":"FALSE"},{"1":"81","2":"Magnemite","3":"Electric","4":"Steel","5":"325","6":"25","7":"35","8":"70","9":"95","10":"55","11":"45","12":"1","13":"FALSE"},{"1":"82","2":"Magneton","3":"Electric","4":"Steel","5":"465","6":"50","7":"60","8":"95","9":"120","10":"70","11":"70","12":"1","13":"FALSE"},{"1":"86","2":"Seel","3":"Water","4":"NA","5":"325","6":"65","7":"45","8":"55","9":"45","10":"70","11":"45","12":"1","13":"FALSE"},{"1":"87","2":"Dewgong","3":"Water","4":"Ice","5":"475","6":"90","7":"70","8":"80","9":"70","10":"95","11":"70","12":"1","13":"FALSE"},{"1":"88","2":"Grimer","3":"Poison","4":"NA","5":"325","6":"80","7":"80","8":"50","9":"40","10":"50","11":"25","12":"1","13":"FALSE"},{"1":"89","2":"Muk","3":"Poison","4":"NA","5":"500","6":"105","7":"105","8":"75","9":"65","10":"100","11":"50","12":"1","13":"FALSE"},{"1":"90","2":"Shellder","3":"Water","4":"NA","5":"305","6":"30","7":"65","8":"100","9":"45","10":"25","11":"40","12":"1","13":"FALSE"},{"1":"91","2":"Cloyster","3":"Water","4":"Ice","5":"525","6":"50","7":"95","8":"180","9":"85","10":"45","11":"70","12":"1","13":"FALSE"},{"1":"98","2":"Krabby","3":"Water","4":"NA","5":"325","6":"30","7":"105","8":"90","9":"25","10":"25","11":"50","12":"1","13":"FALSE"},{"1":"99","2":"Kingler","3":"Water","4":"NA","5":"475","6":"55","7":"130","8":"115","9":"50","10":"50","11":"75","12":"1","13":"FALSE"},{"1":"100","2":"Voltorb","3":"Electric","4":"NA","5":"330","6":"40","7":"30","8":"50","9":"55","10":"55","11":"100","12":"1","13":"FALSE"},{"1":"101","2":"Electrode","3":"Electric","4":"NA","5":"480","6":"60","7":"50","8":"70","9":"80","10":"80","11":"140","12":"1","13":"FALSE"},{"1":"102","2":"Exeggcute","3":"Grass","4":"Psychic","5":"325","6":"60","7":"40","8":"80","9":"60","10":"45","11":"40","12":"1","13":"FALSE"},{"1":"103","2":"Exeggutor","3":"Grass","4":"Psychic","5":"520","6":"95","7":"95","8":"85","9":"125","10":"65","11":"55","12":"1","13":"FALSE"},{"1":"109","2":"Koffing","3":"Poison","4":"NA","5":"340","6":"40","7":"65","8":"95","9":"60","10":"45","11":"35","12":"1","13":"FALSE"},{"1":"110","2":"Weezing","3":"Poison","4":"NA","5":"490","6":"65","7":"90","8":"120","9":"85","10":"70","11":"60","12":"1","13":"FALSE"},{"1":"114","2":"Tangela","3":"Grass","4":"NA","5":"435","6":"65","7":"55","8":"115","9":"100","10":"40","11":"60","12":"1","13":"FALSE"},{"1":"116","2":"Horsea","3":"Water","4":"NA","5":"295","6":"30","7":"40","8":"70","9":"70","10":"25","11":"60","12":"1","13":"FALSE"},{"1":"117","2":"Seadra","3":"Water","4":"NA","5":"440","6":"55","7":"65","8":"95","9":"95","10":"45","11":"85","12":"1","13":"FALSE"},{"1":"118","2":"Goldeen","3":"Water","4":"NA","5":"320","6":"45","7":"67","8":"60","9":"35","10":"50","11":"63","12":"1","13":"FALSE"},{"1":"119","2":"Seaking","3":"Water","4":"NA","5":"450","6":"80","7":"92","8":"65","9":"65","10":"80","11":"68","12":"1","13":"FALSE"},{"1":"120","2":"Staryu","3":"Water","4":"NA","5":"340","6":"30","7":"45","8":"55","9":"70","10":"55","11":"85","12":"1","13":"FALSE"},{"1":"121","2":"Starmie","3":"Water","4":"Psychic","5":"520","6":"60","7":"75","8":"85","9":"100","10":"85","11":"115","12":"1","13":"FALSE"},{"1":"125","2":"Electabuzz","3":"Electric","4":"NA","5":"490","6":"65","7":"83","8":"57","9":"95","10":"85","11":"105","12":"1","13":"FALSE"},{"1":"126","2":"Magmar","3":"Fire","4":"NA","5":"495","6":"65","7":"95","8":"57","9":"100","10":"85","11":"93","12":"1","13":"FALSE"},{"1":"129","2":"Magikarp","3":"Water","4":"NA","5":"200","6":"20","7":"10","8":"55","9":"15","10":"20","11":"80","12":"1","13":"FALSE"},{"1":"130","2":"Gyarados","3":"Water","4":"Flying","5":"540","6":"95","7":"125","8":"79","9":"60","10":"100","11":"81","12":"1","13":"FALSE"},{"1":"130","2":"GyaradosMega Gyarados","3":"Water","4":"Dark","5":"640","6":"95","7":"155","8":"109","9":"70","10":"130","11":"81","12":"1","13":"FALSE"},{"1":"131","2":"Lapras","3":"Water","4":"Ice","5":"535","6":"130","7":"85","8":"80","9":"85","10":"95","11":"60","12":"1","13":"FALSE"},{"1":"134","2":"Vaporeon","3":"Water","4":"NA","5":"525","6":"130","7":"65","8":"60","9":"110","10":"95","11":"65","12":"1","13":"FALSE"},{"1":"135","2":"Jolteon","3":"Electric","4":"NA","5":"525","6":"65","7":"65","8":"60","9":"110","10":"95","11":"130","12":"1","13":"FALSE"},{"1":"136","2":"Flareon","3":"Fire","4":"NA","5":"525","6":"65","7":"130","8":"60","9":"95","10":"110","11":"65","12":"1","13":"FALSE"},{"1":"145","2":"Zapdos","3":"Electric","4":"Flying","5":"580","6":"90","7":"90","8":"85","9":"125","10":"90","11":"100","12":"1","13":"TRUE"},{"1":"146","2":"Moltres","3":"Fire","4":"Flying","5":"580","6":"90","7":"100","8":"90","9":"125","10":"85","11":"90","12":"1","13":"TRUE"},{"1":"152","2":"Chikorita","3":"Grass","4":"NA","5":"318","6":"45","7":"49","8":"65","9":"49","10":"65","11":"45","12":"2","13":"FALSE"},{"1":"153","2":"Bayleef","3":"Grass","4":"NA","5":"405","6":"60","7":"62","8":"80","9":"63","10":"80","11":"60","12":"2","13":"FALSE"},{"1":"154","2":"Meganium","3":"Grass","4":"NA","5":"525","6":"80","7":"82","8":"100","9":"83","10":"100","11":"80","12":"2","13":"FALSE"},{"1":"155","2":"Cyndaquil","3":"Fire","4":"NA","5":"309","6":"39","7":"52","8":"43","9":"60","10":"50","11":"65","12":"2","13":"FALSE"},{"1":"156","2":"Quilava","3":"Fire","4":"NA","5":"405","6":"58","7":"64","8":"58","9":"80","10":"65","11":"80","12":"2","13":"FALSE"},{"1":"157","2":"Typhlosion","3":"Fire","4":"NA","5":"534","6":"78","7":"84","8":"78","9":"109","10":"85","11":"100","12":"2","13":"FALSE"},{"1":"158","2":"Totodile","3":"Water","4":"NA","5":"314","6":"50","7":"65","8":"64","9":"44","10":"48","11":"43","12":"2","13":"FALSE"},{"1":"159","2":"Croconaw","3":"Water","4":"NA","5":"405","6":"65","7":"80","8":"80","9":"59","10":"63","11":"58","12":"2","13":"FALSE"},{"1":"160","2":"Feraligatr","3":"Water","4":"NA","5":"530","6":"85","7":"105","8":"100","9":"79","10":"83","11":"78","12":"2","13":"FALSE"},{"1":"169","2":"Crobat","3":"Poison","4":"Flying","5":"535","6":"85","7":"90","8":"80","9":"70","10":"80","11":"130","12":"2","13":"FALSE"},{"1":"170","2":"Chinchou","3":"Water","4":"Electric","5":"330","6":"75","7":"38","8":"38","9":"56","10":"56","11":"67","12":"2","13":"FALSE"},{"1":"171","2":"Lanturn","3":"Water","4":"Electric","5":"460","6":"125","7":"58","8":"58","9":"76","10":"76","11":"67","12":"2","13":"FALSE"},{"1":"172","2":"Pichu","3":"Electric","4":"NA","5":"205","6":"20","7":"40","8":"15","9":"35","10":"35","11":"60","12":"2","13":"FALSE"},{"1":"179","2":"Mareep","3":"Electric","4":"NA","5":"280","6":"55","7":"40","8":"40","9":"65","10":"45","11":"35","12":"2","13":"FALSE"},{"1":"180","2":"Flaaffy","3":"Electric","4":"NA","5":"365","6":"70","7":"55","8":"55","9":"80","10":"60","11":"45","12":"2","13":"FALSE"},{"1":"181","2":"Ampharos","3":"Electric","4":"NA","5":"510","6":"90","7":"75","8":"85","9":"115","10":"90","11":"55","12":"2","13":"FALSE"},{"1":"181","2":"AmpharosMega Ampharos","3":"Electric","4":"Dragon","5":"610","6":"90","7":"95","8":"105","9":"165","10":"110","11":"45","12":"2","13":"FALSE"},{"1":"182","2":"Bellossom","3":"Grass","4":"NA","5":"490","6":"75","7":"80","8":"95","9":"90","10":"100","11":"50","12":"2","13":"FALSE"},{"1":"183","2":"Marill","3":"Water","4":"Fairy","5":"250","6":"70","7":"20","8":"50","9":"20","10":"50","11":"40","12":"2","13":"FALSE"},{"1":"184","2":"Azumarill","3":"Water","4":"Fairy","5":"420","6":"100","7":"50","8":"80","9":"60","10":"80","11":"50","12":"2","13":"FALSE"},{"1":"186","2":"Politoed","3":"Water","4":"NA","5":"500","6":"90","7":"75","8":"75","9":"90","10":"100","11":"70","12":"2","13":"FALSE"},{"1":"187","2":"Hoppip","3":"Grass","4":"Flying","5":"250","6":"35","7":"35","8":"40","9":"35","10":"55","11":"50","12":"2","13":"FALSE"},{"1":"188","2":"Skiploom","3":"Grass","4":"Flying","5":"340","6":"55","7":"45","8":"50","9":"45","10":"65","11":"80","12":"2","13":"FALSE"},{"1":"189","2":"Jumpluff","3":"Grass","4":"Flying","5":"460","6":"75","7":"55","8":"70","9":"55","10":"95","11":"110","12":"2","13":"FALSE"},{"1":"191","2":"Sunkern","3":"Grass","4":"NA","5":"180","6":"30","7":"30","8":"30","9":"30","10":"30","11":"30","12":"2","13":"FALSE"},{"1":"192","2":"Sunflora","3":"Grass","4":"NA","5":"425","6":"75","7":"75","8":"55","9":"105","10":"85","11":"30","12":"2","13":"FALSE"},{"1":"194","2":"Wooper","3":"Water","4":"Ground","5":"210","6":"55","7":"45","8":"45","9":"25","10":"25","11":"15","12":"2","13":"FALSE"},{"1":"195","2":"Quagsire","3":"Water","4":"Ground","5":"430","6":"95","7":"85","8":"85","9":"65","10":"65","11":"35","12":"2","13":"FALSE"},{"1":"199","2":"Slowking","3":"Water","4":"Psychic","5":"490","6":"95","7":"75","8":"80","9":"100","10":"110","11":"30","12":"2","13":"FALSE"},{"1":"211","2":"Qwilfish","3":"Water","4":"Poison","5":"430","6":"65","7":"95","8":"75","9":"55","10":"55","11":"85","12":"2","13":"FALSE"},{"1":"218","2":"Slugma","3":"Fire","4":"NA","5":"250","6":"40","7":"40","8":"40","9":"70","10":"40","11":"20","12":"2","13":"FALSE"},{"1":"219","2":"Magcargo","3":"Fire","4":"Rock","5":"410","6":"50","7":"50","8":"120","9":"80","10":"80","11":"30","12":"2","13":"FALSE"},{"1":"222","2":"Corsola","3":"Water","4":"Rock","5":"380","6":"55","7":"55","8":"85","9":"65","10":"85","11":"35","12":"2","13":"FALSE"},{"1":"223","2":"Remoraid","3":"Water","4":"NA","5":"300","6":"35","7":"65","8":"35","9":"65","10":"35","11":"65","12":"2","13":"FALSE"},{"1":"224","2":"Octillery","3":"Water","4":"NA","5":"480","6":"75","7":"105","8":"75","9":"105","10":"75","11":"45","12":"2","13":"FALSE"},{"1":"226","2":"Mantine","3":"Water","4":"Flying","5":"465","6":"65","7":"40","8":"70","9":"80","10":"140","11":"70","12":"2","13":"FALSE"},{"1":"230","2":"Kingdra","3":"Water","4":"Dragon","5":"540","6":"75","7":"95","8":"95","9":"95","10":"95","11":"85","12":"2","13":"FALSE"},{"1":"239","2":"Elekid","3":"Electric","4":"NA","5":"360","6":"45","7":"63","8":"37","9":"65","10":"55","11":"95","12":"2","13":"FALSE"},{"1":"240","2":"Magby","3":"Fire","4":"NA","5":"365","6":"45","7":"75","8":"37","9":"70","10":"55","11":"83","12":"2","13":"FALSE"},{"1":"243","2":"Raikou","3":"Electric","4":"NA","5":"580","6":"90","7":"85","8":"75","9":"115","10":"100","11":"115","12":"2","13":"TRUE"},{"1":"244","2":"Entei","3":"Fire","4":"NA","5":"580","6":"115","7":"115","8":"85","9":"90","10":"75","11":"100","12":"2","13":"TRUE"},{"1":"245","2":"Suicune","3":"Water","4":"NA","5":"580","6":"100","7":"75","8":"115","9":"90","10":"115","11":"85","12":"2","13":"TRUE"},{"1":"250","2":"Ho-oh","3":"Fire","4":"Flying","5":"680","6":"106","7":"130","8":"90","9":"110","10":"154","11":"90","12":"2","13":"TRUE"},{"1":"252","2":"Treecko","3":"Grass","4":"NA","5":"310","6":"40","7":"45","8":"35","9":"65","10":"55","11":"70","12":"3","13":"FALSE"},{"1":"253","2":"Grovyle","3":"Grass","4":"NA","5":"405","6":"50","7":"65","8":"45","9":"85","10":"65","11":"95","12":"3","13":"FALSE"},{"1":"254","2":"Sceptile","3":"Grass","4":"NA","5":"530","6":"70","7":"85","8":"65","9":"105","10":"85","11":"120","12":"3","13":"FALSE"},{"1":"254","2":"SceptileMega Sceptile","3":"Grass","4":"Dragon","5":"630","6":"70","7":"110","8":"75","9":"145","10":"85","11":"145","12":"3","13":"FALSE"},{"1":"255","2":"Torchic","3":"Fire","4":"NA","5":"310","6":"45","7":"60","8":"40","9":"70","10":"50","11":"45","12":"3","13":"FALSE"},{"1":"256","2":"Combusken","3":"Fire","4":"Fighting","5":"405","6":"60","7":"85","8":"60","9":"85","10":"60","11":"55","12":"3","13":"FALSE"},{"1":"257","2":"Blaziken","3":"Fire","4":"Fighting","5":"530","6":"80","7":"120","8":"70","9":"110","10":"70","11":"80","12":"3","13":"FALSE"},{"1":"257","2":"BlazikenMega Blaziken","3":"Fire","4":"Fighting","5":"630","6":"80","7":"160","8":"80","9":"130","10":"80","11":"100","12":"3","13":"FALSE"},{"1":"258","2":"Mudkip","3":"Water","4":"NA","5":"310","6":"50","7":"70","8":"50","9":"50","10":"50","11":"40","12":"3","13":"FALSE"},{"1":"259","2":"Marshtomp","3":"Water","4":"Ground","5":"405","6":"70","7":"85","8":"70","9":"60","10":"70","11":"50","12":"3","13":"FALSE"},{"1":"260","2":"Swampert","3":"Water","4":"Ground","5":"535","6":"100","7":"110","8":"90","9":"85","10":"90","11":"60","12":"3","13":"FALSE"},{"1":"260","2":"SwampertMega Swampert","3":"Water","4":"Ground","5":"635","6":"100","7":"150","8":"110","9":"95","10":"110","11":"70","12":"3","13":"FALSE"},{"1":"270","2":"Lotad","3":"Water","4":"Grass","5":"220","6":"40","7":"30","8":"30","9":"40","10":"50","11":"30","12":"3","13":"FALSE"},{"1":"271","2":"Lombre","3":"Water","4":"Grass","5":"340","6":"60","7":"50","8":"50","9":"60","10":"70","11":"50","12":"3","13":"FALSE"},{"1":"272","2":"Ludicolo","3":"Water","4":"Grass","5":"480","6":"80","7":"70","8":"70","9":"90","10":"100","11":"70","12":"3","13":"FALSE"},{"1":"273","2":"Seedot","3":"Grass","4":"NA","5":"220","6":"40","7":"40","8":"50","9":"30","10":"30","11":"30","12":"3","13":"FALSE"},{"1":"274","2":"Nuzleaf","3":"Grass","4":"Dark","5":"340","6":"70","7":"70","8":"40","9":"60","10":"40","11":"60","12":"3","13":"FALSE"},{"1":"275","2":"Shiftry","3":"Grass","4":"Dark","5":"480","6":"90","7":"100","8":"60","9":"90","10":"60","11":"80","12":"3","13":"FALSE"},{"1":"278","2":"Wingull","3":"Water","4":"Flying","5":"270","6":"40","7":"30","8":"30","9":"55","10":"30","11":"85","12":"3","13":"FALSE"},{"1":"279","2":"Pelipper","3":"Water","4":"Flying","5":"430","6":"60","7":"50","8":"100","9":"85","10":"70","11":"65","12":"3","13":"FALSE"},{"1":"285","2":"Shroomish","3":"Grass","4":"NA","5":"295","6":"60","7":"40","8":"60","9":"40","10":"60","11":"35","12":"3","13":"FALSE"},{"1":"286","2":"Breloom","3":"Grass","4":"Fighting","5":"460","6":"60","7":"130","8":"80","9":"60","10":"60","11":"70","12":"3","13":"FALSE"},{"1":"309","2":"Electrike","3":"Electric","4":"NA","5":"295","6":"40","7":"45","8":"40","9":"65","10":"40","11":"65","12":"3","13":"FALSE"},{"1":"310","2":"Manectric","3":"Electric","4":"NA","5":"475","6":"70","7":"75","8":"60","9":"105","10":"60","11":"105","12":"3","13":"FALSE"},{"1":"310","2":"ManectricMega Manectric","3":"Electric","4":"NA","5":"575","6":"70","7":"75","8":"80","9":"135","10":"80","11":"135","12":"3","13":"FALSE"},{"1":"311","2":"Plusle","3":"Electric","4":"NA","5":"405","6":"60","7":"50","8":"40","9":"85","10":"75","11":"95","12":"3","13":"FALSE"},{"1":"312","2":"Minun","3":"Electric","4":"NA","5":"405","6":"60","7":"40","8":"50","9":"75","10":"85","11":"95","12":"3","13":"FALSE"},{"1":"315","2":"Roselia","3":"Grass","4":"Poison","5":"400","6":"50","7":"60","8":"45","9":"100","10":"80","11":"65","12":"3","13":"FALSE"},{"1":"316","2":"Gulpin","3":"Poison","4":"NA","5":"302","6":"70","7":"43","8":"53","9":"43","10":"53","11":"40","12":"3","13":"FALSE"},{"1":"317","2":"Swalot","3":"Poison","4":"NA","5":"467","6":"100","7":"73","8":"83","9":"73","10":"83","11":"55","12":"3","13":"FALSE"},{"1":"318","2":"Carvanha","3":"Water","4":"Dark","5":"305","6":"45","7":"90","8":"20","9":"65","10":"20","11":"65","12":"3","13":"FALSE"},{"1":"319","2":"Sharpedo","3":"Water","4":"Dark","5":"460","6":"70","7":"120","8":"40","9":"95","10":"40","11":"95","12":"3","13":"FALSE"},{"1":"319","2":"SharpedoMega Sharpedo","3":"Water","4":"Dark","5":"560","6":"70","7":"140","8":"70","9":"110","10":"65","11":"105","12":"3","13":"FALSE"},{"1":"320","2":"Wailmer","3":"Water","4":"NA","5":"400","6":"130","7":"70","8":"35","9":"70","10":"35","11":"60","12":"3","13":"FALSE"},{"1":"321","2":"Wailord","3":"Water","4":"NA","5":"500","6":"170","7":"90","8":"45","9":"90","10":"45","11":"60","12":"3","13":"FALSE"},{"1":"322","2":"Numel","3":"Fire","4":"Ground","5":"305","6":"60","7":"60","8":"40","9":"65","10":"45","11":"35","12":"3","13":"FALSE"},{"1":"323","2":"Camerupt","3":"Fire","4":"Ground","5":"460","6":"70","7":"100","8":"70","9":"105","10":"75","11":"40","12":"3","13":"FALSE"},{"1":"323","2":"CameruptMega Camerupt","3":"Fire","4":"Ground","5":"560","6":"70","7":"120","8":"100","9":"145","10":"105","11":"20","12":"3","13":"FALSE"},{"1":"324","2":"Torkoal","3":"Fire","4":"NA","5":"470","6":"70","7":"85","8":"140","9":"85","10":"70","11":"20","12":"3","13":"FALSE"},{"1":"331","2":"Cacnea","3":"Grass","4":"NA","5":"335","6":"50","7":"85","8":"40","9":"85","10":"40","11":"35","12":"3","13":"FALSE"},{"1":"332","2":"Cacturne","3":"Grass","4":"Dark","5":"475","6":"70","7":"115","8":"60","9":"115","10":"60","11":"55","12":"3","13":"FALSE"},{"1":"336","2":"Seviper","3":"Poison","4":"NA","5":"458","6":"73","7":"100","8":"60","9":"100","10":"60","11":"65","12":"3","13":"FALSE"},{"1":"339","2":"Barboach","3":"Water","4":"Ground","5":"288","6":"50","7":"48","8":"43","9":"46","10":"41","11":"60","12":"3","13":"FALSE"},{"1":"340","2":"Whiscash","3":"Water","4":"Ground","5":"468","6":"110","7":"78","8":"73","9":"76","10":"71","11":"60","12":"3","13":"FALSE"},{"1":"341","2":"Corphish","3":"Water","4":"NA","5":"308","6":"43","7":"80","8":"65","9":"50","10":"35","11":"35","12":"3","13":"FALSE"},{"1":"342","2":"Crawdaunt","3":"Water","4":"Dark","5":"468","6":"63","7":"120","8":"85","9":"90","10":"55","11":"55","12":"3","13":"FALSE"},{"1":"349","2":"Feebas","3":"Water","4":"NA","5":"200","6":"20","7":"15","8":"20","9":"10","10":"55","11":"80","12":"3","13":"FALSE"},{"1":"350","2":"Milotic","3":"Water","4":"NA","5":"540","6":"95","7":"60","8":"79","9":"100","10":"125","11":"81","12":"3","13":"FALSE"},{"1":"357","2":"Tropius","3":"Grass","4":"Flying","5":"460","6":"99","7":"68","8":"83","9":"72","10":"87","11":"51","12":"3","13":"FALSE"},{"1":"366","2":"Clamperl","3":"Water","4":"NA","5":"345","6":"35","7":"64","8":"85","9":"74","10":"55","11":"32","12":"3","13":"FALSE"},{"1":"367","2":"Huntail","3":"Water","4":"NA","5":"485","6":"55","7":"104","8":"105","9":"94","10":"75","11":"52","12":"3","13":"FALSE"},{"1":"368","2":"Gorebyss","3":"Water","4":"NA","5":"485","6":"55","7":"84","8":"105","9":"114","10":"75","11":"52","12":"3","13":"FALSE"},{"1":"369","2":"Relicanth","3":"Water","4":"Rock","5":"485","6":"100","7":"90","8":"130","9":"45","10":"65","11":"55","12":"3","13":"FALSE"},{"1":"370","2":"Luvdisc","3":"Water","4":"NA","5":"330","6":"43","7":"30","8":"55","9":"40","10":"65","11":"97","12":"3","13":"FALSE"},{"1":"382","2":"Kyogre","3":"Water","4":"NA","5":"670","6":"100","7":"100","8":"90","9":"150","10":"140","11":"90","12":"3","13":"TRUE"},{"1":"382","2":"KyogrePrimal Kyogre","3":"Water","4":"NA","5":"770","6":"100","7":"150","8":"90","9":"180","10":"160","11":"90","12":"3","13":"TRUE"},{"1":"387","2":"Turtwig","3":"Grass","4":"NA","5":"318","6":"55","7":"68","8":"64","9":"45","10":"55","11":"31","12":"4","13":"FALSE"},{"1":"388","2":"Grotle","3":"Grass","4":"NA","5":"405","6":"75","7":"89","8":"85","9":"55","10":"65","11":"36","12":"4","13":"FALSE"},{"1":"389","2":"Torterra","3":"Grass","4":"Ground","5":"525","6":"95","7":"109","8":"105","9":"75","10":"85","11":"56","12":"4","13":"FALSE"},{"1":"390","2":"Chimchar","3":"Fire","4":"NA","5":"309","6":"44","7":"58","8":"44","9":"58","10":"44","11":"61","12":"4","13":"FALSE"},{"1":"391","2":"Monferno","3":"Fire","4":"Fighting","5":"405","6":"64","7":"78","8":"52","9":"78","10":"52","11":"81","12":"4","13":"FALSE"},{"1":"392","2":"Infernape","3":"Fire","4":"Fighting","5":"534","6":"76","7":"104","8":"71","9":"104","10":"71","11":"108","12":"4","13":"FALSE"},{"1":"393","2":"Piplup","3":"Water","4":"NA","5":"314","6":"53","7":"51","8":"53","9":"61","10":"56","11":"40","12":"4","13":"FALSE"},{"1":"394","2":"Prinplup","3":"Water","4":"NA","5":"405","6":"64","7":"66","8":"68","9":"81","10":"76","11":"50","12":"4","13":"FALSE"},{"1":"395","2":"Empoleon","3":"Water","4":"Steel","5":"530","6":"84","7":"86","8":"88","9":"111","10":"101","11":"60","12":"4","13":"FALSE"},{"1":"403","2":"Shinx","3":"Electric","4":"NA","5":"263","6":"45","7":"65","8":"34","9":"40","10":"34","11":"45","12":"4","13":"FALSE"},{"1":"404","2":"Luxio","3":"Electric","4":"NA","5":"363","6":"60","7":"85","8":"49","9":"60","10":"49","11":"60","12":"4","13":"FALSE"},{"1":"405","2":"Luxray","3":"Electric","4":"NA","5":"523","6":"80","7":"120","8":"79","9":"95","10":"79","11":"70","12":"4","13":"FALSE"},{"1":"406","2":"Budew","3":"Grass","4":"Poison","5":"280","6":"40","7":"30","8":"35","9":"50","10":"70","11":"55","12":"4","13":"FALSE"},{"1":"407","2":"Roserade","3":"Grass","4":"Poison","5":"515","6":"60","7":"70","8":"65","9":"125","10":"105","11":"90","12":"4","13":"FALSE"},{"1":"417","2":"Pachirisu","3":"Electric","4":"NA","5":"405","6":"60","7":"45","8":"70","9":"45","10":"90","11":"95","12":"4","13":"FALSE"},{"1":"418","2":"Buizel","3":"Water","4":"NA","5":"330","6":"55","7":"65","8":"35","9":"60","10":"30","11":"85","12":"4","13":"FALSE"},{"1":"419","2":"Floatzel","3":"Water","4":"NA","5":"495","6":"85","7":"105","8":"55","9":"85","10":"50","11":"115","12":"4","13":"FALSE"},{"1":"420","2":"Cherubi","3":"Grass","4":"NA","5":"275","6":"45","7":"35","8":"45","9":"62","10":"53","11":"35","12":"4","13":"FALSE"},{"1":"421","2":"Cherrim","3":"Grass","4":"NA","5":"450","6":"70","7":"60","8":"70","9":"87","10":"78","11":"85","12":"4","13":"FALSE"},{"1":"422","2":"Shellos","3":"Water","4":"NA","5":"325","6":"76","7":"48","8":"48","9":"57","10":"62","11":"34","12":"4","13":"FALSE"},{"1":"423","2":"Gastrodon","3":"Water","4":"Ground","5":"475","6":"111","7":"83","8":"68","9":"92","10":"82","11":"39","12":"4","13":"FALSE"},{"1":"434","2":"Stunky","3":"Poison","4":"Dark","5":"329","6":"63","7":"63","8":"47","9":"41","10":"41","11":"74","12":"4","13":"FALSE"},{"1":"435","2":"Skuntank","3":"Poison","4":"Dark","5":"479","6":"103","7":"93","8":"67","9":"71","10":"61","11":"84","12":"4","13":"FALSE"},{"1":"451","2":"Skorupi","3":"Poison","4":"Bug","5":"330","6":"40","7":"50","8":"90","9":"30","10":"55","11":"65","12":"4","13":"FALSE"},{"1":"452","2":"Drapion","3":"Poison","4":"Dark","5":"500","6":"70","7":"90","8":"110","9":"60","10":"75","11":"95","12":"4","13":"FALSE"},{"1":"453","2":"Croagunk","3":"Poison","4":"Fighting","5":"300","6":"48","7":"61","8":"40","9":"61","10":"40","11":"50","12":"4","13":"FALSE"},{"1":"454","2":"Toxicroak","3":"Poison","4":"Fighting","5":"490","6":"83","7":"106","8":"65","9":"86","10":"65","11":"85","12":"4","13":"FALSE"},{"1":"455","2":"Carnivine","3":"Grass","4":"NA","5":"454","6":"74","7":"100","8":"72","9":"90","10":"72","11":"46","12":"4","13":"FALSE"},{"1":"456","2":"Finneon","3":"Water","4":"NA","5":"330","6":"49","7":"49","8":"56","9":"49","10":"61","11":"66","12":"4","13":"FALSE"},{"1":"457","2":"Lumineon","3":"Water","4":"NA","5":"460","6":"69","7":"69","8":"76","9":"69","10":"86","11":"91","12":"4","13":"FALSE"},{"1":"458","2":"Mantyke","3":"Water","4":"Flying","5":"345","6":"45","7":"20","8":"50","9":"60","10":"120","11":"50","12":"4","13":"FALSE"},{"1":"459","2":"Snover","3":"Grass","4":"Ice","5":"334","6":"60","7":"62","8":"50","9":"62","10":"60","11":"40","12":"4","13":"FALSE"},{"1":"460","2":"Abomasnow","3":"Grass","4":"Ice","5":"494","6":"90","7":"92","8":"75","9":"92","10":"85","11":"60","12":"4","13":"FALSE"},{"1":"460","2":"AbomasnowMega Abomasnow","3":"Grass","4":"Ice","5":"594","6":"90","7":"132","8":"105","9":"132","10":"105","11":"30","12":"4","13":"FALSE"},{"1":"462","2":"Magnezone","3":"Electric","4":"Steel","5":"535","6":"70","7":"70","8":"115","9":"130","10":"90","11":"60","12":"4","13":"FALSE"},{"1":"465","2":"Tangrowth","3":"Grass","4":"NA","5":"535","6":"100","7":"100","8":"125","9":"110","10":"50","11":"50","12":"4","13":"FALSE"},{"1":"466","2":"Electivire","3":"Electric","4":"NA","5":"540","6":"75","7":"123","8":"67","9":"95","10":"85","11":"95","12":"4","13":"FALSE"},{"1":"467","2":"Magmortar","3":"Fire","4":"NA","5":"540","6":"75","7":"95","8":"67","9":"125","10":"95","11":"83","12":"4","13":"FALSE"},{"1":"470","2":"Leafeon","3":"Grass","4":"NA","5":"525","6":"65","7":"110","8":"130","9":"60","10":"65","11":"95","12":"4","13":"FALSE"},{"1":"479","2":"Rotom","3":"Electric","4":"Ghost","5":"440","6":"50","7":"50","8":"77","9":"95","10":"77","11":"91","12":"4","13":"FALSE"},{"1":"479","2":"RotomHeat Rotom","3":"Electric","4":"Fire","5":"520","6":"50","7":"65","8":"107","9":"105","10":"107","11":"86","12":"4","13":"FALSE"},{"1":"479","2":"RotomWash Rotom","3":"Electric","4":"Water","5":"520","6":"50","7":"65","8":"107","9":"105","10":"107","11":"86","12":"4","13":"FALSE"},{"1":"479","2":"RotomFrost Rotom","3":"Electric","4":"Ice","5":"520","6":"50","7":"65","8":"107","9":"105","10":"107","11":"86","12":"4","13":"FALSE"},{"1":"479","2":"RotomFan Rotom","3":"Electric","4":"Flying","5":"520","6":"50","7":"65","8":"107","9":"105","10":"107","11":"86","12":"4","13":"FALSE"},{"1":"479","2":"RotomMow Rotom","3":"Electric","4":"Grass","5":"520","6":"50","7":"65","8":"107","9":"105","10":"107","11":"86","12":"4","13":"FALSE"},{"1":"484","2":"Palkia","3":"Water","4":"Dragon","5":"680","6":"90","7":"120","8":"100","9":"150","10":"120","11":"100","12":"4","13":"TRUE"},{"1":"485","2":"Heatran","3":"Fire","4":"Steel","5":"600","6":"91","7":"90","8":"106","9":"130","10":"106","11":"77","12":"4","13":"TRUE"},{"1":"489","2":"Phione","3":"Water","4":"NA","5":"480","6":"80","7":"80","8":"80","9":"80","10":"80","11":"80","12":"4","13":"FALSE"},{"1":"490","2":"Manaphy","3":"Water","4":"NA","5":"600","6":"100","7":"100","8":"100","9":"100","10":"100","11":"100","12":"4","13":"FALSE"},{"1":"492","2":"ShayminLand Forme","3":"Grass","4":"NA","5":"600","6":"100","7":"100","8":"100","9":"100","10":"100","11":"100","12":"4","13":"TRUE"},{"1":"492","2":"ShayminSky Forme","3":"Grass","4":"Flying","5":"600","6":"100","7":"103","8":"75","9":"120","10":"75","11":"127","12":"4","13":"TRUE"},{"1":"495","2":"Snivy","3":"Grass","4":"NA","5":"308","6":"45","7":"45","8":"55","9":"45","10":"55","11":"63","12":"5","13":"FALSE"},{"1":"496","2":"Servine","3":"Grass","4":"NA","5":"413","6":"60","7":"60","8":"75","9":"60","10":"75","11":"83","12":"5","13":"FALSE"},{"1":"497","2":"Serperior","3":"Grass","4":"NA","5":"528","6":"75","7":"75","8":"95","9":"75","10":"95","11":"113","12":"5","13":"FALSE"},{"1":"498","2":"Tepig","3":"Fire","4":"NA","5":"308","6":"65","7":"63","8":"45","9":"45","10":"45","11":"45","12":"5","13":"FALSE"},{"1":"499","2":"Pignite","3":"Fire","4":"Fighting","5":"418","6":"90","7":"93","8":"55","9":"70","10":"55","11":"55","12":"5","13":"FALSE"},{"1":"500","2":"Emboar","3":"Fire","4":"Fighting","5":"528","6":"110","7":"123","8":"65","9":"100","10":"65","11":"65","12":"5","13":"FALSE"},{"1":"501","2":"Oshawott","3":"Water","4":"NA","5":"308","6":"55","7":"55","8":"45","9":"63","10":"45","11":"45","12":"5","13":"FALSE"},{"1":"502","2":"Dewott","3":"Water","4":"NA","5":"413","6":"75","7":"75","8":"60","9":"83","10":"60","11":"60","12":"5","13":"FALSE"},{"1":"503","2":"Samurott","3":"Water","4":"NA","5":"528","6":"95","7":"100","8":"85","9":"108","10":"70","11":"70","12":"5","13":"FALSE"},{"1":"511","2":"Pansage","3":"Grass","4":"NA","5":"316","6":"50","7":"53","8":"48","9":"53","10":"48","11":"64","12":"5","13":"FALSE"},{"1":"512","2":"Simisage","3":"Grass","4":"NA","5":"498","6":"75","7":"98","8":"63","9":"98","10":"63","11":"101","12":"5","13":"FALSE"},{"1":"513","2":"Pansear","3":"Fire","4":"NA","5":"316","6":"50","7":"53","8":"48","9":"53","10":"48","11":"64","12":"5","13":"FALSE"},{"1":"514","2":"Simisear","3":"Fire","4":"NA","5":"498","6":"75","7":"98","8":"63","9":"98","10":"63","11":"101","12":"5","13":"FALSE"},{"1":"515","2":"Panpour","3":"Water","4":"NA","5":"316","6":"50","7":"53","8":"48","9":"53","10":"48","11":"64","12":"5","13":"FALSE"},{"1":"516","2":"Simipour","3":"Water","4":"NA","5":"498","6":"75","7":"98","8":"63","9":"98","10":"63","11":"101","12":"5","13":"FALSE"},{"1":"522","2":"Blitzle","3":"Electric","4":"NA","5":"295","6":"45","7":"60","8":"32","9":"50","10":"32","11":"76","12":"5","13":"FALSE"},{"1":"523","2":"Zebstrika","3":"Electric","4":"NA","5":"497","6":"75","7":"100","8":"63","9":"80","10":"63","11":"116","12":"5","13":"FALSE"},{"1":"535","2":"Tympole","3":"Water","4":"NA","5":"294","6":"50","7":"50","8":"40","9":"50","10":"40","11":"64","12":"5","13":"FALSE"},{"1":"536","2":"Palpitoad","3":"Water","4":"Ground","5":"384","6":"75","7":"65","8":"55","9":"65","10":"55","11":"69","12":"5","13":"FALSE"},{"1":"537","2":"Seismitoad","3":"Water","4":"Ground","5":"509","6":"105","7":"95","8":"75","9":"85","10":"75","11":"74","12":"5","13":"FALSE"},{"1":"546","2":"Cottonee","3":"Grass","4":"Fairy","5":"280","6":"40","7":"27","8":"60","9":"37","10":"50","11":"66","12":"5","13":"FALSE"},{"1":"547","2":"Whimsicott","3":"Grass","4":"Fairy","5":"480","6":"60","7":"67","8":"85","9":"77","10":"75","11":"116","12":"5","13":"FALSE"},{"1":"548","2":"Petilil","3":"Grass","4":"NA","5":"280","6":"45","7":"35","8":"50","9":"70","10":"50","11":"30","12":"5","13":"FALSE"},{"1":"549","2":"Lilligant","3":"Grass","4":"NA","5":"480","6":"70","7":"60","8":"75","9":"110","10":"75","11":"90","12":"5","13":"FALSE"},{"1":"550","2":"Basculin","3":"Water","4":"NA","5":"460","6":"70","7":"92","8":"65","9":"80","10":"55","11":"98","12":"5","13":"FALSE"},{"1":"554","2":"Darumaka","3":"Fire","4":"NA","5":"315","6":"70","7":"90","8":"45","9":"15","10":"45","11":"50","12":"5","13":"FALSE"},{"1":"555","2":"DarmanitanStandard Mode","3":"Fire","4":"NA","5":"480","6":"105","7":"140","8":"55","9":"30","10":"55","11":"95","12":"5","13":"FALSE"},{"1":"555","2":"DarmanitanZen Mode","3":"Fire","4":"Psychic","5":"540","6":"105","7":"30","8":"105","9":"140","10":"105","11":"55","12":"5","13":"FALSE"},{"1":"556","2":"Maractus","3":"Grass","4":"NA","5":"461","6":"75","7":"86","8":"67","9":"106","10":"67","11":"60","12":"5","13":"FALSE"},{"1":"564","2":"Tirtouga","3":"Water","4":"Rock","5":"355","6":"54","7":"78","8":"103","9":"53","10":"45","11":"22","12":"5","13":"FALSE"},{"1":"565","2":"Carracosta","3":"Water","4":"Rock","5":"495","6":"74","7":"108","8":"133","9":"83","10":"65","11":"32","12":"5","13":"FALSE"},{"1":"568","2":"Trubbish","3":"Poison","4":"NA","5":"329","6":"50","7":"50","8":"62","9":"40","10":"62","11":"65","12":"5","13":"FALSE"},{"1":"569","2":"Garbodor","3":"Poison","4":"NA","5":"474","6":"80","7":"95","8":"82","9":"60","10":"82","11":"75","12":"5","13":"FALSE"},{"1":"580","2":"Ducklett","3":"Water","4":"Flying","5":"305","6":"62","7":"44","8":"50","9":"44","10":"50","11":"55","12":"5","13":"FALSE"},{"1":"581","2":"Swanna","3":"Water","4":"Flying","5":"473","6":"75","7":"87","8":"63","9":"87","10":"63","11":"98","12":"5","13":"FALSE"},{"1":"587","2":"Emolga","3":"Electric","4":"Flying","5":"428","6":"55","7":"75","8":"60","9":"75","10":"60","11":"103","12":"5","13":"FALSE"},{"1":"590","2":"Foongus","3":"Grass","4":"Poison","5":"294","6":"69","7":"55","8":"45","9":"55","10":"55","11":"15","12":"5","13":"FALSE"},{"1":"591","2":"Amoonguss","3":"Grass","4":"Poison","5":"464","6":"114","7":"85","8":"70","9":"85","10":"80","11":"30","12":"5","13":"FALSE"},{"1":"592","2":"Frillish","3":"Water","4":"Ghost","5":"335","6":"55","7":"40","8":"50","9":"65","10":"85","11":"40","12":"5","13":"FALSE"},{"1":"593","2":"Jellicent","3":"Water","4":"Ghost","5":"480","6":"100","7":"60","8":"70","9":"85","10":"105","11":"60","12":"5","13":"FALSE"},{"1":"594","2":"Alomomola","3":"Water","4":"NA","5":"470","6":"165","7":"75","8":"80","9":"40","10":"45","11":"65","12":"5","13":"FALSE"},{"1":"597","2":"Ferroseed","3":"Grass","4":"Steel","5":"305","6":"44","7":"50","8":"91","9":"24","10":"86","11":"10","12":"5","13":"FALSE"},{"1":"598","2":"Ferrothorn","3":"Grass","4":"Steel","5":"489","6":"74","7":"94","8":"131","9":"54","10":"116","11":"20","12":"5","13":"FALSE"},{"1":"602","2":"Tynamo","3":"Electric","4":"NA","5":"275","6":"35","7":"55","8":"40","9":"45","10":"40","11":"60","12":"5","13":"FALSE"},{"1":"603","2":"Eelektrik","3":"Electric","4":"NA","5":"405","6":"65","7":"85","8":"70","9":"75","10":"70","11":"40","12":"5","13":"FALSE"},{"1":"604","2":"Eelektross","3":"Electric","4":"NA","5":"515","6":"85","7":"115","8":"80","9":"105","10":"80","11":"50","12":"5","13":"FALSE"},{"1":"631","2":"Heatmor","3":"Fire","4":"NA","5":"484","6":"85","7":"97","8":"66","9":"105","10":"66","11":"65","12":"5","13":"FALSE"},{"1":"640","2":"Virizion","3":"Grass","4":"Fighting","5":"580","6":"91","7":"90","8":"72","9":"90","10":"129","11":"108","12":"5","13":"TRUE"},{"1":"642","2":"ThundurusIncarnate Forme","3":"Electric","4":"Flying","5":"580","6":"79","7":"115","8":"70","9":"125","10":"80","11":"111","12":"5","13":"TRUE"},{"1":"642","2":"ThundurusTherian Forme","3":"Electric","4":"Flying","5":"580","6":"79","7":"105","8":"70","9":"145","10":"80","11":"101","12":"5","13":"TRUE"},{"1":"647","2":"KeldeoOrdinary Forme","3":"Water","4":"Fighting","5":"580","6":"91","7":"72","8":"90","9":"129","10":"90","11":"108","12":"5","13":"FALSE"},{"1":"647","2":"KeldeoResolute Forme","3":"Water","4":"Fighting","5":"580","6":"91","7":"72","8":"90","9":"129","10":"90","11":"108","12":"5","13":"FALSE"},{"1":"650","2":"Chespin","3":"Grass","4":"NA","5":"313","6":"56","7":"61","8":"65","9":"48","10":"45","11":"38","12":"6","13":"FALSE"},{"1":"651","2":"Quilladin","3":"Grass","4":"NA","5":"405","6":"61","7":"78","8":"95","9":"56","10":"58","11":"57","12":"6","13":"FALSE"},{"1":"652","2":"Chesnaught","3":"Grass","4":"Fighting","5":"530","6":"88","7":"107","8":"122","9":"74","10":"75","11":"64","12":"6","13":"FALSE"},{"1":"653","2":"Fennekin","3":"Fire","4":"NA","5":"307","6":"40","7":"45","8":"40","9":"62","10":"60","11":"60","12":"6","13":"FALSE"},{"1":"654","2":"Braixen","3":"Fire","4":"NA","5":"409","6":"59","7":"59","8":"58","9":"90","10":"70","11":"73","12":"6","13":"FALSE"},{"1":"655","2":"Delphox","3":"Fire","4":"Psychic","5":"534","6":"75","7":"69","8":"72","9":"114","10":"100","11":"104","12":"6","13":"FALSE"},{"1":"656","2":"Froakie","3":"Water","4":"NA","5":"314","6":"41","7":"56","8":"40","9":"62","10":"44","11":"71","12":"6","13":"FALSE"},{"1":"657","2":"Frogadier","3":"Water","4":"NA","5":"405","6":"54","7":"63","8":"52","9":"83","10":"56","11":"97","12":"6","13":"FALSE"},{"1":"658","2":"Greninja","3":"Water","4":"Dark","5":"530","6":"72","7":"95","8":"67","9":"103","10":"71","11":"122","12":"6","13":"FALSE"},{"1":"662","2":"Fletchinder","3":"Fire","4":"Flying","5":"382","6":"62","7":"73","8":"55","9":"56","10":"52","11":"84","12":"6","13":"FALSE"},{"1":"663","2":"Talonflame","3":"Fire","4":"Flying","5":"499","6":"78","7":"81","8":"71","9":"74","10":"69","11":"126","12":"6","13":"FALSE"},{"1":"667","2":"Litleo","3":"Fire","4":"Normal","5":"369","6":"62","7":"50","8":"58","9":"73","10":"54","11":"72","12":"6","13":"FALSE"},{"1":"668","2":"Pyroar","3":"Fire","4":"Normal","5":"507","6":"86","7":"68","8":"72","9":"109","10":"66","11":"106","12":"6","13":"FALSE"},{"1":"672","2":"Skiddo","3":"Grass","4":"NA","5":"350","6":"66","7":"65","8":"48","9":"62","10":"57","11":"52","12":"6","13":"FALSE"},{"1":"673","2":"Gogoat","3":"Grass","4":"NA","5":"531","6":"123","7":"100","8":"62","9":"97","10":"81","11":"68","12":"6","13":"FALSE"},{"1":"690","2":"Skrelp","3":"Poison","4":"Water","5":"320","6":"50","7":"60","8":"60","9":"60","10":"60","11":"30","12":"6","13":"FALSE"},{"1":"691","2":"Dragalge","3":"Poison","4":"Dragon","5":"494","6":"65","7":"75","8":"90","9":"97","10":"123","11":"44","12":"6","13":"FALSE"},{"1":"692","2":"Clauncher","3":"Water","4":"NA","5":"330","6":"50","7":"53","8":"62","9":"58","10":"63","11":"44","12":"6","13":"FALSE"},{"1":"693","2":"Clawitzer","3":"Water","4":"NA","5":"500","6":"71","7":"73","8":"88","9":"120","10":"89","11":"59","12":"6","13":"FALSE"},{"1":"694","2":"Helioptile","3":"Electric","4":"Normal","5":"289","6":"44","7":"38","8":"33","9":"61","10":"43","11":"70","12":"6","13":"FALSE"},{"1":"695","2":"Heliolisk","3":"Electric","4":"Normal","5":"481","6":"62","7":"55","8":"52","9":"109","10":"94","11":"109","12":"6","13":"FALSE"},{"1":"702","2":"Dedenne","3":"Electric","4":"Fairy","5":"431","6":"67","7":"58","8":"57","9":"81","10":"67","11":"101","12":"6","13":"FALSE"},{"1":"721","2":"Volcanion","3":"Fire","4":"Water","5":"600","6":"80","7":"110","8":"120","9":"130","10":"90","11":"70","12":"6","13":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><strong>c.&nbsp;Visualización de la distribución por tipo y generación:</strong></p>
+<p>Una vez que tenga el subconjunto, elabore un gráfico que muestre el número de Pokémon por cada tipo. Asegúrese de que la visualización permita distinguir los Pokémon según su generación. Además, discrimine la visualización separando los Pokémon legendarios de los no legendarios. Pregunta: ¿Cuál tipo de Pokémon tiene la mayor cantidad de individuos legendarios? (Recuerde que debe usar en el subconjunto creado en el punto anterior).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> conj <span class="sc">|&gt;</span> <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mutate</span>(<span class="at">legen =</span> <span class="fu">case_when</span>(legendario <span class="sc">==</span> <span class="st">"FALSE"</span> <span class="sc">~</span> <span class="st">"No Legendario"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                                       legendario <span class="sc">==</span> <span class="st">"TRUE"</span> <span class="sc">~</span> <span class="st">"Legendario"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">summarise</span>(<span class="at">contar =</span> <span class="fu">n</span>(), <span class="at">.by =</span> <span class="fu">c</span>(tipo, generacion,legen))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>grafica <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat,<span class="fu">aes</span>(<span class="at">y=</span> contar, <span class="at">x=</span> tipo,<span class="at">fill=</span>generacion))<span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">facet_wrap</span>(<span class="sc">~</span>legen)<span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"Generación"</span>, <span class="at">x=</span> <span class="st">"Tipo"</span>,<span class="at">y=</span><span class="st">"Total"</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>grafica</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="parcial-lab_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>El tipo de pokemon legendario que tiene la mayor cantidad de individuos es Fire.</p>
+<p><strong>d.&nbsp;Cálculo de probabilidad:</strong></p>
+<p>Asumiendo que los datos siguen una distribución normal, calcule la probabilidad de que un Pokémon seleccionado al azar tenga un poder total mayor a 600.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="dv">600</span>, <span class="at">mean=</span><span class="fu">mean</span>(pokemon<span class="sc">$</span>poder_total), <span class="at">sd=</span><span class="fu">sd</span>(pokemon<span class="sc">$</span>poder_total))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>prob</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08463252</code></pre>
+</div>
+</div>
+</section>
+<section id="escamas-en-serpientes-2.5-puntos." class="level2">
+<h2 class="anchored" data-anchor-id="escamas-en-serpientes-2.5-puntos.">2. Escamas en Serpientes (2.5 puntos).</h2>
+<p><em>Andinophis colombianus</em> es una especie de serpiente que habita regiones altoandinas de las 3 cordilleras de Colombia. El archivo <code>datos_escamas.xlsx</code> contiene conteos de escamas ventrales y escamas subcaudales en 30 hembras y 30 machos de esta especie. Asuma que el muestreo fue aleatorio e independiente, y use un valor critico <span class="math inline">\(\alpha = 0.01\)</span>.</p>
+<p>Según lo visto en los laboratorios desarrollados, resuelva lo siguiente:</p>
+<p><strong>a. Elegir prueba:</strong></p>
+<p>Para evaluar si existe dimorfismo sexual (diferencias entre machos y hembras) en el número de escamas ventrales ¿qué prueba estadística debería emplearse? Explique.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>serp <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"datos_escamas.xlsx"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ser_muj <span class="ot">&lt;-</span> serp <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(Sexo <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ser_hom <span class="ot">&lt;-</span> serp <span class="sc">|&gt;</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(Sexo <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>norm_hem <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(ser_muj<span class="sc">$</span>Escamas_Ventrales)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>norm_hom <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(ser_hom<span class="sc">$</span>Escamas_Ventrales)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>norm_hem</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  ser_muj$Escamas_Ventrales
+W = 0.97514, p-value = 0.6868</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>norm_hom</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  ser_hom$Escamas_Ventrales
+W = 0.9837, p-value = 0.913</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>varTest<span class="ot">&lt;-</span> <span class="fu">var.test</span>(ser_muj<span class="sc">$</span>Escamas_Ventrales,ser_hom<span class="sc">$</span>Escamas_Ventrales)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>varTest</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test to compare two variances
+
+data:  ser_muj$Escamas_Ventrales and ser_hom$Escamas_Ventrales
+F = 0.93432, num df = 29, denom df = 29, p-value = 0.8561
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.4447043 1.9630064
+sample estimates:
+ratio of variances 
+         0.9343219 </code></pre>
+</div>
+</div>
+<p>De acuerdo con el test de normalidad de Shapiro no se rechaza la hipótesis de que ambos sexos se distribuyen normal en las escamas ventrales. Adicionalmente, no se rechaza la hipótesis de que ambas varianzas son iguales, por lo tanto se puede aplicar 2 sample t test.</p>
+<p><strong>b. Realizar la prueba y responder:</strong></p>
+<p>¿Existe diferencia en el promedio de las escamas ventrales entre machos y hembras?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(ser_muj<span class="sc">$</span>Escamas_Ventrales,ser_hom<span class="sc">$</span>Escamas_Ventrales, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  ser_muj$Escamas_Ventrales and ser_hom$Escamas_Ventrales
+t = -12.972, df = 58, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -17.70124 -12.96860
+sample estimates:
+mean of x mean of y 
+ 149.0593  164.3942 </code></pre>
+</div>
+</div>
+<p>Se rechaza la hipotesis de que el promedio de las escamas ventrales sea igual. Por ende, se concluye que bajo el nivel de significancia escogido, si existe diferencia entre las medias de los distintos sexos respecto a sus escamas ventrales.</p>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Para este punto del parcial <em>debe</em> realizar todos los pasos listados a continuación:</p>
+<ol type="i">
+<li><strong>Explorar visualmente el conjunto de datos asociado a la investigación (verifica el tipo de datos).</strong></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>graf_hem <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ser_muj, <span class="fu">aes</span>(<span class="at">x=</span> Escamas_Ventrales))<span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>()<span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Frecuencia de Escamas Ventrales Hembras"</span>, <span class="at">x=</span><span class="st">"Cantidad Escamas Ventrales"</span>,<span class="at">y=</span><span class="st">"Frecuencia"</span>)<span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>graf_hem</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="parcial-lab_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>graf_hom <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ser_hom, <span class="fu">aes</span>(<span class="at">x=</span> Escamas_Ventrales))<span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>()<span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Frecuencia de Escamas Ventrales Machos"</span>, <span class="at">x=</span><span class="st">"Cantidad Escamas Ventrales"</span>,<span class="at">y=</span><span class="st">"Frecuencia"</span>)<span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>graf_hom</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="parcial-lab_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="i">
+<li><strong>Plantear</strong> <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span> <strong>teniendo en cuenta la pregunta de investigación mencionada.</strong></li>
+</ol>
+<p>H0: media_EscamaVentrales_macho = media_EscamaVentrales_hembra Ha: media_EscamaVentrales_macho != media_EscamaVentrales_hembra</p>
+<ol start="3" type="i">
+<li><p><strong>Evaluar la normalidad de las variables que lo requieran.</strong> Esto se respondió en el punto a.</p></li>
+<li><p><strong>Escoger la prueba estadística adecuada (validar supuestos de su prueba)</strong> Esto se respondió en el punto a.</p></li>
+<li><p><strong>Aplicar la prueba estadística.</strong> Esto se respondió en el punto b.</p></li>
+<li><p><strong>Discutir sus resultados. (importante)</strong> Esto se respondió en el punto b.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

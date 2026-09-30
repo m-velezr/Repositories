@@ -1,0 +1,249 @@
+---
+title: "Parcial de Laboratorio IeI"
+author: ""
+date: today
+format: html
+lang: es
+fig-align: center
+df-print: paged
+toc: true
+---
+
+## 1. Pokemones Legendarios (2.5 puntos).
+
+En este punto, se presenta un conjunto de datos de Pokémon (`datos_pokemon.xlsx`) creado por Alberto Barradas, un analista de datos de comportamiento de TUGraz, Austria. Incluye las principales características de 721 Pokémon. A partir de este dataset, realice los siguientes ejercicios:
+
+**a. Descripción de los datos**
+
+A partir de este set de datos, describe el proceso para calcular y visualizar las medidas de tendencia central y dispersión. Explore principalmente el poder total, ataque, defensa y velocidad de los pokemones. Explique que encuentra e inteprete (use la librería `ggplot2` para graficar los datos).
+
+```{r}
+library(readxl)
+library(patchwork)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+
+pokemon <- read_xlsx("datos_pokemon.xlsx")
+par(mfrow = c(1,4))
+poder <- pokemon |> 
+  summarise("Media" = mean(pokemon$poder_total,na.rm=TRUE), "Desviación Estandar" = sd(pokemon$poder_total,na.rm=TRUE), "Coeficiente de Variación" =sd(pokemon$poder_total,na.rm=TRUE)/ mean(pokemon$poder_total,na.rm=TRUE)*100,"Rango Intercuartil" = IQR(pokemon$poder_total,na.rm=TRUE))
+
+
+ataque  <- pokemon |> 
+  summarise("Media" = mean(pokemon$ataque,na.rm=TRUE), "Desviación Estandar" = sd(pokemon$ataque,na.rm=TRUE), "Coeficiente de Variación" =sd(pokemon$ataque,na.rm=TRUE)/ mean(pokemon$ataque,na.rm=TRUE) * 100,"Rango Intercuartil" = IQR(pokemon$ataque,na.rm=TRUE))
+
+
+
+defensa  <- pokemon |> 
+  summarise("Media" = mean(pokemon$defensa,na.rm=TRUE), "Desviación Estandar" = sd(pokemon$defensa,na.rm=TRUE), "Coeficiente de Variación" =sd(pokemon$defensa,na.rm=TRUE)/ mean(pokemon$defensa,na.rm=TRUE)*100,"Rango Intercuartil" = IQR(pokemon$defensa,na.rm=TRUE))
+
+velocidad  <- pokemon |> 
+  summarise("Media" = mean(pokemon$velocidad,na.rm=TRUE), "Desviación Estandar" = sd(pokemon$velocidad,na.rm=TRUE), "Coeficiente de Variación" =sd(pokemon$velocidad,na.rm=TRUE)/ mean(pokemon$velocidad,na.rm=TRUE)*100, "Rango Intercuartil" = IQR(pokemon$velocidad,na.rm=TRUE))
+
+
+
+
+poder
+ataque
+defensa
+velocidad
+
+
+
+
+
+graf_Poder<-ggplot(pokemon, aes(x=poder_total))+
+            geom_histogram()+
+            theme_minimal()+
+            labs(title = "Frecuencia del Poder Total", y = "Frecuencia", x= "Poder Total")+ theme(plot.title=element_text(hjust=0.5,size=10))
+  
+graf_Ataque <-ggplot(pokemon, aes(x=poder_total))+
+            geom_histogram()+
+            theme_minimal()+
+            labs(title = "Frecuencia del Ataque",y = "Frecuencia", x= "Ataque")+
+   theme(plot.title=element_text(hjust=0.5,size=10))
+  
+graf_Defensa <-ggplot(pokemon, aes(x=poder_total))+
+            geom_histogram()+
+            theme_minimal()+
+            labs(title = "Frecuencia de la Defensa",y = "Frecuencia", x= "Defensa")+     theme(plot.title=element_text(hjust=0.5,size=10))
+
+graf_Velocidad <-ggplot(pokemon, aes(x=poder_total))+
+            geom_histogram()+
+            theme_minimal()+
+            labs(title = "Frecuencia de la Velocidad", y = "Frecuencia", x= "Velocidad")+
+            theme(plot.title=element_text(hjust=0.5,size=10))
+  
+  
+graf_Poder + graf_Ataque + graf_Defensa+ graf_Velocidad
+
+
+
+```
+Se observa que, el rango intercuartil de la defensa es de 40, esto indica que el 50% de los datos están más concentrados alrededor de la mediana a diferencia de las otras características del pokemon. Sin embargo, se observa que el coeficiente de variación mas reducido lo obtiene el Poder Total, esto indica que en general los datos que menos varían en su totalidad pertenecen a esta categoría.
+
+
+
+
+
+
+
+**b. Creación de subconjunto de datos:**
+
+A partir del conjunto de datos de Pokémon, cree un subconjunto que contenga únicamente la información correspondiente a los Pokémon de los siguientes tipos: Grass, Electric, Fire, Water y Poison.
+
+
+```{r}
+
+conj <- pokemon |> 
+        filter(tipo == "Grass" | tipo =="Electric"|tipo == "Fire"| tipo =="Water"|tipo=="Poison")
+
+conj
+```
+
+
+
+
+**c. Visualización de la distribución por tipo y generación:**
+
+Una vez que tenga el subconjunto, elabore un gráfico que muestre el número de Pokémon por cada tipo. Asegúrese de que la visualización permita distinguir los Pokémon según su generación. Además, discrimine la visualización separando los Pokémon legendarios de los no legendarios. Pregunta: ¿Cuál tipo de Pokémon tiene la mayor cantidad de individuos legendarios? (Recuerde que debe usar en el subconjunto creado en el punto anterior).
+
+```{r}
+
+dat <- conj |> drop_na() |> 
+                mutate(legen = case_when(legendario == "FALSE" ~ "No Legendario",
+                                       legendario == "TRUE" ~ "Legendario")) |> 
+                              summarise(contar = n(), .by = c(tipo, generacion,legen))
+ 
+
+grafica <- ggplot(dat,aes(y= contar, x= tipo,fill=generacion))+
+            geom_col()+
+            facet_wrap(~legen)+
+            labs(fill="Generación", x= "Tipo",y="Total")
+           
+grafica
+
+```
+El tipo de pokemon legendario que tiene la mayor cantidad de individuos es Fire.
+
+**d. Cálculo de probabilidad:**
+
+Asumiendo que los datos siguen una distribución normal, calcule la probabilidad de que un Pokémon seleccionado al azar tenga un poder total mayor a 600.
+
+```{r}
+
+prob <- 1-pnorm(600, mean=mean(pokemon$poder_total), sd=sd(pokemon$poder_total))
+
+prob
+
+
+
+```
+
+
+
+
+
+
+
+## 2. Escamas en Serpientes (2.5 puntos).
+
+*Andinophis colombianus* es una especie de serpiente que habita regiones altoandinas de las 3 cordilleras de Colombia. El archivo `datos_escamas.xlsx` contiene conteos de escamas ventrales y escamas subcaudales en 30 hembras y 30 machos de esta especie. Asuma que el muestreo fue aleatorio e independiente, y use un valor critico $\alpha = 0.01$.
+
+Según lo visto en los laboratorios desarrollados, resuelva lo siguiente:
+
+**a. Elegir prueba:**
+
+Para evaluar si existe dimorfismo sexual (diferencias entre machos y hembras) en el número de escamas ventrales ¿qué prueba estadística debería emplearse? Explique.
+
+
+
+
+```{r}
+serp <- read_xlsx("datos_escamas.xlsx")
+
+ser_muj <- serp |> 
+            filter(Sexo == 0)
+ser_hom <- serp |> 
+            filter(Sexo == 1)
+
+
+norm_hem <- shapiro.test(ser_muj$Escamas_Ventrales)
+norm_hom <- shapiro.test(ser_hom$Escamas_Ventrales)
+
+norm_hem
+norm_hom
+
+varTest<- var.test(ser_muj$Escamas_Ventrales,ser_hom$Escamas_Ventrales)
+
+varTest
+
+```
+
+De acuerdo con el test de normalidad de Shapiro no se rechaza la hipótesis de que ambos sexos se distribuyen normal en las escamas ventrales. Adicionalmente, no se rechaza la hipótesis de que ambas varianzas son iguales, por lo tanto se puede aplicar 2 sample t test.
+
+
+
+
+
+
+
+
+**b. Realizar la prueba y responder:**
+
+¿Existe diferencia en el promedio de las escamas ventrales entre machos y hembras?
+```{r}
+
+
+test <- t.test(ser_muj$Escamas_Ventrales,ser_hom$Escamas_Ventrales, var.equal = TRUE)
+
+
+test
+```
+Se rechaza la hipotesis de que el promedio de las escamas ventrales sea igual. Por ende, se concluye que bajo el nivel de significancia escogido, si existe diferencia entre las medias de los distintos sexos respecto a sus escamas ventrales.
+
+::: {.callout-important appearance="simple"}
+Para este punto del parcial *debe* realizar todos los pasos listados a continuación:
+
+i.  **Explorar visualmente el conjunto de datos asociado a la investigación (verifica el tipo de datos).**
+```{r}
+
+graf_hem <- ggplot(ser_muj, aes(x= Escamas_Ventrales))+
+        geom_histogram()+
+        theme_minimal()+
+        labs(title="Frecuencia de Escamas Ventrales Hembras", x="Cantidad Escamas Ventrales",y="Frecuencia")+
+        theme(plot.title=element_text(hjust=0.5))
+
+graf_hem
+
+graf_hom <- ggplot(ser_hom, aes(x= Escamas_Ventrales))+
+        geom_histogram()+
+        theme_minimal()+
+        labs(title="Frecuencia de Escamas Ventrales Machos", x="Cantidad Escamas Ventrales",y="Frecuencia")+
+        theme(plot.title=element_text(hjust=0.5))
+graf_hom
+
+
+```
+    
+
+      
+
+ii. **Plantear** $H_0$ y $H_A$ **teniendo en cuenta la pregunta de investigación mencionada.**
+
+H0: media_EscamaVentrales_macho = media_EscamaVentrales_hembra
+Ha: media_EscamaVentrales_macho != media_EscamaVentrales_hembra
+
+iii. **Evaluar la normalidad de las variables que lo requieran.**
+Esto se respondió en el punto a.
+
+iv. **Escoger la prueba estadística adecuada (validar supuestos de su prueba)**
+Esto se respondió en el punto a.
+
+v.  **Aplicar la prueba estadística.**
+Esto se respondió en el punto b.
+
+
+vi. **Discutir sus resultados. (importante)**
+Esto se respondió en el punto b.
